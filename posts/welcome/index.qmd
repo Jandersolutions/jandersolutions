@@ -1,6 +1,7 @@
 ---
 title: "Welcome To My Blog"
-author: "Tristan O'Malley"
+lang: pt-BR
+author: "Janderson B Abreu"
 date: "2022-12-22"
 categories: [news]
 ---

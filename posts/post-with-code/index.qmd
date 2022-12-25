@@ -1,6 +1,7 @@
 ---
 title: "Post With Code"
-author: "Harlow Malloc"
+lang: pt-BR
+author: "Janderson B Abreu"
 date: "2022-12-25"
 categories: [news, code, analysis]
 image: "image.jpg"
