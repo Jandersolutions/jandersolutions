@@ -3,17 +3,26 @@ project:
   output-dir: docs
 
 website:
-  title: "janderscience"
+  title: "Janderscience"
   navbar:
     right:
-      - about.qmd
+      - Sobre.qmd
+      - Datacado.qmd
+      - Pythematica.qmd
+      - Blog.qmd
+      - icon: linkedin
+        href: https://www.linkedin.com/in/janderson-abreu-1b4466106/
       - icon: github
-        href: https://github.com/
-      - icon: twitter
-        href: https://twitter.com
+        href: https://github.com/Jandersolutions
+      - icon: whatsapp
+        href: https://api.whatsapp.com/send?phone=5561981423845
+      - icon: medium
+        href: https://medium.com/@jandersonabreu5
 format:
   html:
-    theme: cosmo
+    theme: 
+      light: minty
+      dark: cyborg
     css: styles.css
 
 editor: visual

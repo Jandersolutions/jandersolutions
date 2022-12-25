@@ -24,6 +24,7 @@ dill==0.3.6
 docutils==0.19
 entrypoints==0.4
 executing==1.2.0
+Faker==15.3.4
 fastjsonschema==2.16.2
 flake8==6.0.0
 fonttools==4.38.0
