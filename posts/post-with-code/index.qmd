@@ -1,0 +1,44 @@
+---
+title: "Post With Code"
+author: "Harlow Malloc"
+date: "2022-12-25"
+categories: [news, code, analysis]
+image: "image.jpg"
+jupyter: python3
+---
+
+This is a post with executable code.
+
+```{python}
+1 + 1
+
+```
+
+```{python}
+import numpy as np
+import simpy as sp
+import pandas as pd
+import scipy as sc
+import matplotlib.pyplot as plt
+```
+
+```{python}
+data = {
+  "calories": [420, 380, 390],
+  "duration": [50, 40, 45]
+}
+
+#load data into a DataFrame object:
+df = pd.DataFrame(data)
+
+df
+```
+
+```{python}
+df.value_counts()
+```
+
+```{python}
+df = pd.DataFrame(data, index = ["day1", "day2", "day3"])
+df
+```

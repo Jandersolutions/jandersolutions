@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "janderscience",
+    "section": "",
+    "text": "Post With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nDec 25, 2022\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nDec 22, 2022\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/post-with-code/index.html",
+    "href": "posts/post-with-code/index.html",
+    "title": "Post With Code",
+    "section": "",
+    "text": "This is a post with executable code.\n\n1 + 1\n\n2\n\n\n\nimport numpy as np\nimport simpy as sp\nimport pandas as pd\nimport scipy as sc\nimport matplotlib.pyplot as plt\n\n\ndata = {\n  \"calories\": [420, 380, 390],\n  \"duration\": [50, 40, 45]\n}\n\n#load data into a DataFrame object:\ndf = pd.DataFrame(data)\n\ndf\n\n\n\n\n\n  \n    \n      \n      calories\n      duration\n    \n  \n  \n    \n      0\n      420\n      50\n    \n    \n      1\n      380\n      40\n    \n    \n      2\n      390\n      45\n    \n  \n\n\n\n\n\ndf.value_counts()\n\ncalories  duration\n380       40          1\n390       45          1\n420       50          1\ndtype: int64\n\n\n\ndf = pd.DataFrame(data, index = [\"day1\", \"day2\", \"day3\"])\ndf\n\n\n\n\n\n  \n    \n      \n      calories\n      duration\n    \n  \n  \n    \n      day1\n      420\n      50\n    \n    \n      day2\n      380\n      40\n    \n    \n      day3\n      390\n      45"
+  }
+]
