@@ -4,6 +4,8 @@ project:
 
 website:
   title: "Janderscience"
+  site-url: "https://jander.science"
+  site-path: '/'
   google-analytics:
     tracking-id: "G-57EC9PE2WR"
     anonymize-ip: true
