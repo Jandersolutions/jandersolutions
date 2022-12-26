@@ -6,6 +6,9 @@ date: "2022-12-25"
 categories: [news, code, analysis]
 image: "image.jpg"
 jupyter: python3
+page-layout: full
+toc: true
+toc-depth: 5
 ---
 
 This is a post with executable code.

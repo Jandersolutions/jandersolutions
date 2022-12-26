@@ -6,3 +6,10 @@ freeze: true
 
 # Enable banner style title blocks
 title-block-banner: true
+
+format: 
+  html:
+    include-after-body: ../footer.html
+page-layout: full
+toc: true
+toc-depth: 5

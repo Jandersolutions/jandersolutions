@@ -4,6 +4,13 @@ project:
 
 website:
   title: "Janderscience"
+  google-analytics:
+    tracking-id: "G-57EC9PE2WR"
+    anonymize-ip: true
+  cookie-consent:
+    type: express
+    style: headline
+    palette: dark
   navbar:
     right:
       - Sobre.qmd
