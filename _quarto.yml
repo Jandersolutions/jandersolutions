@@ -11,6 +11,7 @@ website:
     type: express
     style: headline
     palette: dark
+    language: pt
   navbar:
     right:
       - Sobre.qmd
