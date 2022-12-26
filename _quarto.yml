@@ -4,8 +4,13 @@ project:
 
 website:
   title: "Janderscience"
+  favicon: logo.png
   site-url: "https://jander.science"
   site-path: '/'
+  twitter-card: true
+  open-graph:
+    locale: pt_BR
+    site-name: janderscience
   google-analytics:
     tracking-id: "G-57EC9PE2WR"
     anonymize-ip: true
