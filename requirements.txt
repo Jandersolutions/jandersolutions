@@ -113,7 +113,7 @@ textual==0.1.18
 tinycss2==1.2.1
 tomli==2.0.1
 tomlkit==0.11.6
-tornado==6.2
+tornado==6.3.3
 traitlets==5.8.0
 uri-template==1.2.0
 urllib3==1.26.13
