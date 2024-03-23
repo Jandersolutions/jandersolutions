@@ -2,8 +2,18 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/post-with-code_2/index.html",
+      "/posts/post-with-code_4/index.html",
+      "/posts/welcome_3/index.html",
+      "/posts/welcome_2/index.html",
       "/posts/post-with-code/index.html",
-      "/posts/welcome/index.html"
+      "/posts/post-with-code_3/index.html",
+      "/posts/datacado/index.html",
+      "/posts/datacado_3/index.html",
+      "/posts/datacado_2/index.html",
+      "/posts/datacado_4/index.html",
+      "/posts/welcome/index.html",
+      "/posts/welcome_1/index.html"
     ]
   }
 ]
