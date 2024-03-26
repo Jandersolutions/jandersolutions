@@ -1,0 +1,9 @@
+inserir em todos os artigos
+comments:
+  giscus: 
+    repo: quarto-dev/quarto-docs
+    copiar a pasta post
+    
+    criar o .gitignore
+    copiar a parsta env e o requirements.txt
+    

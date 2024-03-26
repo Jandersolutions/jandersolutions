@@ -42,7 +42,6 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/quarto-contrib/interactive-sql-1.0.0/interactive-sql.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,6 +69,20 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Procurar"
   }
 }</script>
+
+<script type="text/javascript">
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-XXXXXXXX', 'auto');
+
+ga('send', {
+  hitType: 'pageview',
+  'anonymizeIp': true,
+});
+</script>
 <style>
 
       .quarto-title-block .quarto-title-banner h1,
@@ -84,19 +97,59 @@ ul.task-list li input[type="checkbox"] {
 
       .quarto-title-block .quarto-title-banner {
         color: #ffffff;
+background: #00000000;
       }
 </style>
 <style>
  #title-block-header {
   background-image: url(image.jpg);
 }
+#title-block-header.quarto-title-block.default .quarto-title-meta {
+  color: #ffffff;
+  position: relative;
+  z-index: 1;
+}
+.quarto-title-block .quarto-title-banner {
+  height: 0;
+}
+#title-block-header {
+  background-size: cover;
+  background-position-y: center;
+  height: 400px;
+}
+#title-block-header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 0;
+}
+.quarto-title-block .quarto-title-banner {
+  height: 0;
+  z-index: 99;
+}
+.quarto-title-banner {
+  color: rgba(255, 255, 255, .7);
+  background: rgba(33, 150, 243, 0);
+}
+footer.footer div.nav-footer p:last-child {
+  margin-bottom: 0;
+  padding-top: 20px;
+}
 </style>
-<script src="https://unpkg.com/@antonz/sqlite@3.40.0/dist/sqlite3.js"></script>
-<script src="https://unpkg.com/sqlime@0.1.3/dist/sqlime-db.js"></script>
-<script src="https://unpkg.com/sqlime@0.1.3/dist/sqlime-examples.js"></script>
 
 
 <link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Datacado - 🛍️ O Poder do Atacado: Maximizando Lucros e Eficiência 🚚">
+<meta property="og:image" content="https://datacado.site/posts/datacado/image.jpg">
+<meta property="og:site_name" content="Datacado">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:title" content="Datacado - 🛍️ O Poder do Atacado: Maximizando Lucros e Eficiência 🚚">
+<meta name="twitter:image" content="https://datacado.site/posts/datacado/image.jpg">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-fixed">
@@ -263,14 +316,10 @@ ul.task-list li input[type="checkbox"] {
 <p>O atacado desempenha um papel crucial na economia global, proporcionando eficiência, conveniência e acesso a uma ampla variedade de produtos para consumidores e empresas. Com suas vantagens em economia de escala, variedade de produtos e eficiência logística, os atacadistas têm o potencial de impulsionar o crescimento econômico e o sucesso dos negócios em uma ampla gama de setores. Ao investir em estratégias de sucesso, como conhecer o mercado, construir relacionamentos e utilizar tecnologia, os atacadistas podem maximizar seus lucros e contribuir para o desenvolvimento sustentável dos mercados em que atuam.</p>
 
 
-<sqlime-db name="hr" path="https://raw.githubusercontent.com/shafayetShafee/interactive-sql/main/hr.sql"></sqlime-db>
-<sqlime-examples db="hr" selector="div.interactive-sql pre.hr code" editable=""></sqlime-examples>
-<sqlime-db name="hr-not-editable" path="https://raw.githubusercontent.com/shafayetShafee/interactive-sql/main/hr.sql"></sqlime-db>
-<sqlime-examples db="hr-not-editable" selector="div.interactive-sql pre.hr-not-editable code"></sqlime-examples>
 </section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-reuse"><h2 class="anchored quarto-appendix-heading">Reuso</h2><div class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.pt">CC BY 4.0</a></div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -496,7 +545,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/datacado\.site");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
@@ -824,6 +873,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<script src="https://giscus.app/client.js" data-repo="quarto-dev/quarto-docs" data-repo-id="" data-category="General" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -861,5 +914,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<script src="../../site_libs/quarto-contrib/interactive-sql-1.0.0/interactive-sql.js"></script>
 </body></html>
