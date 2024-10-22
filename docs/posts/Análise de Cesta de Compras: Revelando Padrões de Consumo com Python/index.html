@@ -264,27 +264,59 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="implementação-do-algoritmo-apriori-em-python" class="level4">
 <h4 class="anchored" data-anchor-id="implementação-do-algoritmo-apriori-em-python">Implementação do Algoritmo Apriori em Python</h4>
 <p>Para implementar o algoritmo Apriori em Python, utilizamos a biblioteca <strong>Mlxtend</strong> . Veja um exemplo prático:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<div id="d6463bd1" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mlxtend.frequent_patterns <span class="im">import</span> apriori, association_rules</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Carregar os dados de transações</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>transacoes <span class="op">=</span> pd.read_csv(<span class="st">'transacoes.csv'</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Transformar os dados em formato de um DataFrame com 0s e 1s</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>basket <span class="op">=</span> (transacoes</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>          .groupby([<span class="st">'Compra'</span>, <span class="st">'Produto'</span>])[<span class="st">'Quantidade'</span>]</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>          .<span class="bu">sum</span>().unstack().reset_index().fillna(<span class="dv">0</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>          .set_index(<span class="st">'Compra'</span>))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemplo de estrutura de transações (cada linha representando uma transação)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>dados <span class="op">=</span> {<span class="st">'Leite'</span>: [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>],</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>         <span class="st">'Café'</span>: [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>         <span class="st">'Pão'</span>: [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>],</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>         <span class="st">'Queijo'</span>: [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>]}</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar DataFrame</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(dados)</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Converter a quantidade em 1s e 0s</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>basket <span class="op">=</span> basket.applymap(<span class="kw">lambda</span> x: <span class="dv">1</span> <span class="cf">if</span> x <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Gerar itemsets frequentes</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>frequent_itemsets <span class="op">=</span> apriori(df, min_support<span class="op">=</span><span class="fl">0.2</span>, use_colnames<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Aplicar o algoritmo Apriori</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>frequent_itemsets <span class="op">=</span> apriori(basket, min_support<span class="op">=</span><span class="fl">0.01</span>, use_colnames<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Gerar regras de associação</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>regras <span class="op">=</span> association_rules(frequent_itemsets, metric<span class="op">=</span><span class="st">"lift"</span>, min_threshold<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Extrair as regras de associação</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>regras <span class="op">=</span> association_rules(frequent_itemsets, metric<span class="op">=</span><span class="st">"lift"</span>, min_threshold<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(regras)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Exibir regras</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(regras)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       antecedents      consequents  antecedent support  consequent support  \
+0          (Leite)           (Café)                 0.6                 0.6   
+1           (Café)          (Leite)                 0.6                 0.6   
+2          (Leite)            (Pão)                 0.6                 0.6   
+3            (Pão)          (Leite)                 0.6                 0.6   
+4            (Pão)         (Queijo)                 0.6                 0.6   
+5         (Queijo)            (Pão)                 0.6                 0.6   
+6      (Pão, Café)          (Leite)                 0.2                 0.6   
+7          (Leite)      (Pão, Café)                 0.6                 0.2   
+8  (Leite, Queijo)            (Pão)                 0.2                 0.6   
+9            (Pão)  (Leite, Queijo)                 0.6                 0.2   
+
+   support  confidence      lift  leverage  conviction  zhangs_metric  
+0      0.4    0.666667  1.111111      0.04         1.2           0.25  
+1      0.4    0.666667  1.111111      0.04         1.2           0.25  
+2      0.4    0.666667  1.111111      0.04         1.2           0.25  
+3      0.4    0.666667  1.111111      0.04         1.2           0.25  
+4      0.4    0.666667  1.111111      0.04         1.2           0.25  
+5      0.4    0.666667  1.111111      0.04         1.2           0.25  
+6      0.2    1.000000  1.666667      0.08         inf           0.50  
+7      0.2    0.333333  1.666667      0.08         1.2           1.00  
+8      0.2    1.000000  1.666667      0.08         inf           0.50  
+9      0.2    0.333333  1.666667      0.08         1.2           1.00  </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/janderscience/Projeto/site/Datacado/env/lib/python3.12/site-packages/mlxtend/frequent_patterns/fpcommon.py:109: DeprecationWarning:
+
+DataFrames with non-bool types result in worse computationalperformance and their support might be discontinued in the future.Please use a DataFrame with bool type
+</code></pre>
+</div>
+</div>
 <p>Neste código, transformamos os dados de transações em um formato adequado para análise, aplicamos o algoritmo Apriori para encontrar conjuntos frequentes e extraímos regras de associação baseadas em uma métrica de elevação (lift).</p>
 <hr>
 </section>
@@ -310,17 +342,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Bibliotecas como <strong>NetworkX</strong> e <strong>Plotly</strong> permitem criar representações visuais dos dados de associação, tornando os padrões de consumo mais evidentes.</p>
 <section id="exemplo-de-visualização-com-networkx" class="level4">
 <h4 class="anchored" data-anchor-id="exemplo-de-visualização-com-networkx">Exemplo de Visualização com NetworkX</h4>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar um gráfico de rede</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.from_pandas_edgelist(regras, source<span class="op">=</span><span class="st">'antecedents'</span>, target<span class="op">=</span><span class="st">'consequents'</span>, edge_attr<span class="op">=</span><span class="st">'lift'</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Desenhar o gráfico</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>))</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>nx.draw(G, with_labels<span class="op">=</span><span class="va">True</span>, node_size<span class="op">=</span><span class="dv">3000</span>, node_color<span class="op">=</span><span class="st">'skyblue'</span>, font_size<span class="op">=</span><span class="dv">15</span>, font_weight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Gráfico de Rede das Regras de Associação'</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="eade54a1" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar um gráfico de rede</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.from_pandas_edgelist(regras, source<span class="op">=</span><span class="st">'antecedents'</span>, target<span class="op">=</span><span class="st">'consequents'</span>, edge_attr<span class="op">=</span><span class="st">'lift'</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Desenhar o gráfico</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>))</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>nx.draw(G, with_labels<span class="op">=</span><span class="va">True</span>, node_size<span class="op">=</span><span class="dv">3000</span>, node_color<span class="op">=</span><span class="st">'skyblue'</span>, font_size<span class="op">=</span><span class="dv">15</span>, font_weight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Gráfico de Rede das Regras de Associação'</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-3-output-1.png" width="979" height="1000" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 <p>Neste exemplo, usamos o <strong>NetworkX</strong> para visualizar as regras de associação, onde cada nó representa um produto e as arestas representam a relação entre eles, ponderada pela métrica de lift. Essa visualização ajuda a identificar rapidamente quais produtos estão mais interconectados e podem ser alvo de estratégias de marketing.</p>
 <hr>
 </section>
