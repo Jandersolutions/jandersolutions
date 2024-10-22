@@ -262,7 +262,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 id="exemplo-de-web-scraping-com-beautiful-soup" class="anchored">Exemplo de Web Scraping com Beautiful Soup</h3></li>
 </ul>
 <p>Aqui está um exemplo de como você pode usar o Beautiful Soup para extrair preços de um site de concorrência:</p>
-<div id="6781f02e" class="cell" data-execution_count="1">
+<div id="dc378ace" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bs4 <span class="im">import</span> BeautifulSoup</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -284,53 +284,146 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Encontrar os preços dos produtos (tags h4 com a classe correta)</span></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    precos <span class="op">=</span> sopa.find_all(<span class="st">'h4'</span>, class_<span class="op">=</span><span class="st">'price'</span>)</span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Verificar se encontramos algum produto e preço</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> produtos <span class="kw">and</span> precos:</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Preparar lista de dados</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        lista_dados <span class="op">=</span> []</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> produto, preco <span class="kw">in</span> <span class="bu">zip</span>(produtos, precos):</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>            nome_produto <span class="op">=</span> produto.text.strip()</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>            preco_produto <span class="op">=</span> preco.text.strip()</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>            lista_dados.append({<span class="st">'produto'</span>: nome_produto, <span class="st">'preco'</span>: preco_produto})</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Criar DataFrame com os dados</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>        df <span class="op">=</span> pd.DataFrame(lista_dados)</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Salvar os dados em um arquivo CSV</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        df.to_csv(<span class="st">'precos.csv'</span>, index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Arquivo 'precos.csv' criado com sucesso!"</span>)</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Exibir os primeiros 5 produtos para confirmação</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(df.head())</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Nenhum produto ou preço encontrado."</span>)</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Erro ao acessar a página. Status code: </span><span class="sc">{</span>resposta<span class="sc">.</span>status_code<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Encontrar as descrições dos produtos (tags p com a classe description)</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    descricoes <span class="op">=</span> sopa.find_all(<span class="st">'p'</span>, class_<span class="op">=</span><span class="st">'description'</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Encontrar as classificações dos produtos (tags div com a classe ratings)</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    classificacoes <span class="op">=</span> sopa.find_all(<span class="st">'div'</span>, class_<span class="op">=</span><span class="st">'ratings'</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Verificar se encontramos os dados necessários</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> produtos <span class="kw">and</span> precos <span class="kw">and</span> descricoes <span class="kw">and</span> classificacoes:</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Preparar lista de dados</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        lista_dados <span class="op">=</span> []</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> produto, preco, descricao, classificacao <span class="kw">in</span> <span class="bu">zip</span>(produtos, precos, descricoes, classificacoes):</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>            nome_produto <span class="op">=</span> produto.text.strip()</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>            preco_produto <span class="op">=</span> preco.text.strip()</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>            descricao_produto <span class="op">=</span> descricao.text.strip()</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Extrair o número de estrelas da classificação</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>            estrelas <span class="op">=</span> classificacao.find_all(<span class="st">'span'</span>, class_<span class="op">=</span><span class="st">'glyphicon glyphicon-star'</span>)</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>            num_estrelas <span class="op">=</span> <span class="bu">len</span>(estrelas)</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Extrair o número de reviews</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>            num_reviews <span class="op">=</span> classificacao.find(<span class="st">'p'</span>).text.strip()</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Adicionar os dados à lista</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>            lista_dados.append({</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>                <span class="st">'produto'</span>: nome_produto,</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>                <span class="st">'preco'</span>: preco_produto,</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>                <span class="st">'descricao'</span>: descricao_produto,</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>                <span class="st">'classificacao'</span>: num_estrelas,</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>                <span class="st">'num_reviews'</span>: num_reviews</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>            })</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Criar DataFrame com os dados</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>        df <span class="op">=</span> pd.DataFrame(lista_dados)</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Salvar os dados em um arquivo CSV</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>        df.to_csv(<span class="st">'precos_completos.csv'</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Arquivo 'precos_completos.csv' criado com sucesso!"</span>)</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Exibir os primeiros 5 produtos para confirmação</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(df.head())</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Dados insuficientes encontrados."</span>)</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Erro ao acessar a página. Status code: </span><span class="sc">{</span>resposta<span class="sc">.</span>status_code<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Arquivo 'precos.csv' criado com sucesso!
-             produto    preco
-0   Asus VivoBook...  $295.99
-1  Prestigio Smar...     $299
-2  Prestigio Smar...     $299
-3      Aspire E1-510  $306.99
-4  Lenovo V110-15...  $321.94</code></pre>
+<pre><code>Arquivo 'precos_completos.csv' criado com sucesso!
+             produto    preco  \
+0   Asus VivoBook...  $295.99   
+1  Prestigio Smar...     $299   
+2  Prestigio Smar...     $299   
+3      Aspire E1-510  $306.99   
+4  Lenovo V110-15...  $321.94   
+
+                                           descricao  classificacao  \
+0  Asus VivoBook X441NA-GA190 Chocolate Black, 14...              0   
+1  Prestigio SmartBook 133S Dark Grey, 13.3" FHD ...              0   
+2  Prestigio SmartBook 133S Gold, 13.3" FHD IPS, ...              0   
+3    15.6", Pentium N3520 2.16GHz, 4GB, 500GB, Linux              0   
+4  Lenovo V110-15IAP, 15.6" HD, Celeron N3350 1.1...              0   
+
+  num_reviews  
+0  14 reviews  
+1   8 reviews  
+2  12 reviews  
+3   2 reviews  
+4   5 reviews  </code></pre>
 </div>
 </div>
 <p>Após coletar os dados, a limpeza e manipulação são essenciais. Utilizar a biblioteca <strong>Pandas</strong> permite que você organize e prepare esses dados para a modelagem, removendo inconsistências e valores ausentes.</p>
 <section id="exemplos-de-limpeza-de-dados-com-pandas" class="level3">
 <h3 class="anchored" data-anchor-id="exemplos-de-limpeza-de-dados-com-pandas">Exemplos de Limpeza de Dados com Pandas</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<div id="b200598d" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Carregar dados</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'precos.csv'</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Carregar os dados raspados</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'precos_completos.csv'</span>)</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Remover duplicatas</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop_duplicates()</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificar as colunas do DataFrame</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Colunas disponíveis no DataFrame:"</span>, df.columns)</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Preencher valores ausentes</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'preco'</span>].fillna(df[<span class="st">'preco'</span>].mean(), inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Função para limpar e converter os preços</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> limpar_preco(preco):</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remover símbolo de moeda e múltiplos valores concatenados</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    preco <span class="op">=</span> preco.replace(<span class="st">'$'</span>, <span class="st">''</span>)  <span class="co"># Remover '$'</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    preco <span class="op">=</span> preco.split(<span class="st">'$'</span>)[<span class="dv">0</span>]  <span class="co"># Caso haja múltiplos preços concatenados, pega o primeiro</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Converter para float</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">float</span>(preco)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">ValueError</span>:</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Caso não seja possível converter, retornar NaN</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> pd.NA</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Aplicar a função de limpeza à coluna de preços</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'preco'</span>] <span class="op">=</span> df[<span class="st">'preco'</span>].<span class="bu">apply</span>(limpar_preco)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Remover duplicatas com base nas colunas disponíveis</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop_duplicates(subset<span class="op">=</span>[<span class="st">'produto'</span>, <span class="st">'descricao'</span>, <span class="st">'preco'</span>, <span class="st">'classificacao'</span>, <span class="st">'num_reviews'</span>])</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Preencher valores ausentes de forma inteligente</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'preco'</span>] <span class="op">=</span> df[<span class="st">'preco'</span>].fillna(df[<span class="st">'preco'</span>].mean())</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Preencher classificações ausentes com a média</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'classificacao'</span> <span class="kw">in</span> df.columns:</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'classificacao'</span>] <span class="op">=</span> df[<span class="st">'classificacao'</span>].fillna(df[<span class="st">'classificacao'</span>].mean())</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Preencher número de reviews ausente com 0</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'num_reviews'</span> <span class="kw">in</span> df.columns:</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'num_reviews'</span>] <span class="op">=</span> df[<span class="st">'num_reviews'</span>].fillna(<span class="dv">0</span>)</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificar o DataFrame limpo</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.head())</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Salvar o DataFrame limpo</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>df.to_csv(<span class="st">'precos_limpo.csv'</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Colunas disponíveis no DataFrame: Index(['produto', 'preco', 'descricao', 'classificacao', 'num_reviews'], dtype='object')
+             produto   preco  \
+0   Asus VivoBook...  295.99   
+1  Prestigio Smar...  299.00   
+2  Prestigio Smar...  299.00   
+3      Aspire E1-510  306.99   
+4  Lenovo V110-15...  321.94   
+
+                                           descricao  classificacao  \
+0  Asus VivoBook X441NA-GA190 Chocolate Black, 14...              0   
+1  Prestigio SmartBook 133S Dark Grey, 13.3" FHD ...              0   
+2  Prestigio SmartBook 133S Gold, 13.3" FHD IPS, ...              0   
+3    15.6", Pentium N3520 2.16GHz, 4GB, 500GB, Linux              0   
+4  Lenovo V110-15IAP, 15.6" HD, Celeron N3350 1.1...              0   
+
+  num_reviews  
+0  14 reviews  
+1   8 reviews  
+2  12 reviews  
+3   2 reviews  
+4   5 reviews  </code></pre>
+</div>
+</div>
 <hr>
 </section>
 </section>
@@ -340,22 +433,88 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="exemplo-de-regressão-linear" class="level3">
 <h3 class="anchored" data-anchor-id="exemplo-de-regressão-linear">Exemplo de Regressão Linear</h3>
 <p>Aqui está um exemplo básico de como implementar uma regressão linear usando a biblioteca <strong>Scikit-learn</strong> :</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Dividir dados em variáveis independentes (X) e dependentes (y)</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df[[<span class="st">'custo'</span>, <span class="st">'demanda'</span>]]</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">'preco'</span>]</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Dividir em conjunto de treinamento e teste</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>X_treino, X_teste, y_treino, y_teste <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar e treinar o modelo</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>modelo <span class="op">=</span> LinearRegression()</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>modelo.fit(X_treino, y_treino)</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Fazer previsões</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>previsoes <span class="op">=</span> modelo.predict(X_teste)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="c14a7d90" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OneHotEncoder</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Carregar os dados limpos</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'precos_limpo.csv'</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Tratar valores ausentes</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'preco'</span>].fillna(df[<span class="st">'preco'</span>].mean(), inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Verifique se as colunas 'rating' e 'num_avaliacoes' estão presentes</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'rating'</span> <span class="kw">in</span> df.columns:</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'rating'</span>].fillna(df[<span class="st">'rating'</span>].mean(), inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'num_avaliacoes'</span> <span class="kw">in</span> df.columns:</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'num_avaliacoes'</span>].fillna(<span class="dv">0</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'num_avaliacoes'</span>] <span class="op">=</span> <span class="dv">0</span>  <span class="co"># Ou outra lógica que você preferir</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajustar a seleção das variáveis independentes (X) com base nas colunas disponíveis</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>X_cols <span class="op">=</span> [<span class="st">'classificacao'</span>]  <span class="co"># Ajuste aqui com base nas colunas que fazem sentido</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df[X_cols]</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">'preco'</span>]</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co"># One-hot encoding para variáveis categóricas (por exemplo, 'classificacao')</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>preprocessador <span class="op">=</span> ColumnTransformer(transformers<span class="op">=</span>[</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'cat'</span>, OneHotEncoder(), [<span class="st">'classificacao'</span>])</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>], remainder<span class="op">=</span><span class="st">'passthrough'</span>)</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar pipeline de pré-processamento e modelo</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>pipeline <span class="op">=</span> Pipeline(steps<span class="op">=</span>[</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'preprocess'</span>, preprocessador),</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'modelo'</span>, LinearRegression())</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Dividir em conjunto de treinamento e teste</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>X_treino, X_teste, y_treino, y_teste <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Treinar o modelo</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>pipeline.fit(X_treino, y_treino)</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Fazer previsões</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>previsoes <span class="op">=</span> pipeline.predict(X_teste)</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Exibir as primeiras 10 previsões e as 10 primeiras linhas do conjunto de teste</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"As primeiras 10 previsões são:"</span>, previsoes[:<span class="dv">10</span>])</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">As 10 primeiras linhas do conjunto de teste:"</span>)</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_teste.head(<span class="dv">10</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>As primeiras 10 previsões são: [912.87774194 912.87774194 912.87774194 912.87774194 912.87774194
+ 912.87774194 912.87774194 912.87774194 912.87774194 912.87774194]
+
+As 10 primeiras linhas do conjunto de teste:
+    classificacao
+44              0
+4               0
+53              0
+42              0
+10              0
+85              0
+72              0
+94              0
+36              0
+11              0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/tmp/ipykernel_35161/881320131.py:12: FutureWarning:
+
+A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+</code></pre>
+</div>
+</div>
 <p>A comparação entre diferentes modelos pode ser feita utilizando métricas de performance como <strong>RMSE</strong> e <strong>R²</strong> , permitindo que o varejista escolha o modelo mais eficaz.</p>
 <hr>
 </section>
@@ -365,16 +524,114 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Após a criação do modelo, a próxima etapa é a <strong>implementação</strong> . Integrar os modelos de precificação com os sistemas de gestão existentes é essencial para a aplicação prática. Além disso, é fundamental monitorar continuamente o desempenho dos preços.Para isso, <strong>dashboards</strong> interativos podem ser criados usando bibliotecas como <strong>Dash</strong> ou <strong>Streamlit</strong> , permitindo que os gestores visualizem em tempo real as variações de preço e suas consequências nas vendas. Abaixo, apresentamos um exemplo básico de um dashboard em Streamlit:</p>
 <section id="exemplo-de-dashboard-com-streamlit" class="level3">
 <h3 class="anchored" data-anchor-id="exemplo-de-dashboard-com-streamlit">Exemplo de Dashboard com Streamlit</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Título do aplicativo</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>st.title(<span class="st">'Dashboard de Preços'</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de preços</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>st.line_chart(df[<span class="st">'preco'</span>])</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabela com os dados</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>st.dataframe(df)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Salve como app.py e faça: <strong>streamlit run app.py</strong> no terminal e o resultado sera uma dashboard que analisa produtos em intervalo de preços</p>
+<p><img src="pic.png" class="img-fluid"></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Carregar os dados limpos</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'precos_limpo.csv'</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Tratar valores ausentes</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'preco'</span>] <span class="op">=</span> df[<span class="st">'preco'</span>].fillna(df[<span class="st">'preco'</span>].mean())</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Streamlit</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>st.title(<span class="st">'Dashboard de Preços'</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>st.markdown(<span class="st">'&lt;link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/united/bootstrap.min.css"&gt;'</span>, unsafe_allow_html<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>st.sidebar.header(<span class="st">'Filtros'</span>)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtro por faixa de preço</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>preco_min, preco_max <span class="op">=</span> st.sidebar.slider(</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Selecione a faixa de preço:'</span>,</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    min_value<span class="op">=</span><span class="bu">float</span>(df[<span class="st">'preco'</span>].<span class="bu">min</span>()),</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    max_value<span class="op">=</span><span class="bu">float</span>(df[<span class="st">'preco'</span>].<span class="bu">max</span>()),</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    value<span class="op">=</span>(<span class="bu">float</span>(df[<span class="st">'preco'</span>].<span class="bu">min</span>()), <span class="bu">float</span>(df[<span class="st">'preco'</span>].<span class="bu">max</span>()))</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtrar o DataFrame</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>df_filtrado <span class="op">=</span> df[</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    (df[<span class="st">'preco'</span>] <span class="op">&gt;=</span> preco_min) <span class="op">&amp;</span> (df[<span class="st">'preco'</span>] <span class="op">&lt;=</span> preco_max)</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Cards de informações</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>media_preco <span class="op">=</span> df_filtrado[<span class="st">'preco'</span>].mean()</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>preco_maximo <span class="op">=</span> df_filtrado[<span class="st">'preco'</span>].<span class="bu">max</span>()</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>preco_minimo <span class="op">=</span> df_filtrado[<span class="st">'preco'</span>].<span class="bu">min</span>()</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Cálculos dinâmicos para custo total</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>custo_total <span class="op">=</span> df_filtrado[<span class="st">'preco'</span>].<span class="bu">sum</span>()  <span class="co"># Custo total</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular somatória de preços por produto</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>soma_precos_por_produto <span class="op">=</span> df_filtrado.groupby(<span class="st">'produto'</span>)[<span class="st">'preco'</span>].<span class="bu">sum</span>().reset_index()</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Identificar produto mais e menos vendido</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>produto_mais_vendido <span class="op">=</span> soma_precos_por_produto.loc[soma_precos_por_produto[<span class="st">'preco'</span>].idxmax()][<span class="st">'produto'</span>] <span class="cf">if</span> <span class="kw">not</span> soma_precos_por_produto.empty <span class="cf">else</span> <span class="st">'N/A'</span></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>produto_menos_vendido <span class="op">=</span> soma_precos_por_produto.loc[soma_precos_por_produto[<span class="st">'preco'</span>].idxmin()][<span class="st">'produto'</span>] <span class="cf">if</span> <span class="kw">not</span> soma_precos_por_produto.empty <span class="cf">else</span> <span class="st">'N/A'</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Estilizando os cards</span></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>st.markdown(<span class="st">"""</span></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a><span class="st">    &lt;style&gt;</span></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a><span class="st">    .card {</span></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a><span class="st">        border-radius: 10px;</span></span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a><span class="st">        padding: 20px;</span></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a><span class="st">        margin: 5px; /* Reduzir margem */</span></span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a><span class="st">        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);</span></span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a><span class="st">        color: white;</span></span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a><span class="st">        display: flex;</span></span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a><span class="st">        justify-content: center;</span></span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a><span class="st">        align-items: center;</span></span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a><span class="st">        height: 100px;</span></span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a><span class="st">        flex-grow: 1;</span></span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a><span class="st">    }</span></span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a><span class="st">    .media {background-color: #FFA500;} /* Laranja */</span></span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a><span class="st">    .maximo {background-color: #28a745;} /* Verde */</span></span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a><span class="st">    .minimo {background-color: #dc3545;} /* Vermelho */</span></span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a><span class="st">    .lucro {background-color: #007bff;} /* Azul */</span></span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a><span class="st">    .mais-vendido {background-color: #17a2b8;} /* Ciano */</span></span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a><span class="st">    .menos-vendido {background-color: #6f42c1;} /* Roxo */</span></span>
+<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a><span class="st">    &lt;/style&gt;</span></span>
+<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>, unsafe_allow_html<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a><span class="co"># Layout para os cards ocupando toda a largura</span></span>
+<span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a>col1, col2, col3 <span class="op">=</span> st.columns([<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>])</span>
+<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> col1:</span>
+<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a>    st.markdown(<span class="ss">f'&lt;div class="card media"&gt;Média de Preço: R$ </span><span class="sc">{</span>media_preco<span class="sc">:.2f}</span><span class="ss">&lt;/div&gt;'</span>, unsafe_allow_html<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> col2:</span>
+<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a>    st.markdown(<span class="ss">f'&lt;div class="card maximo"&gt;Preço Mais Alto: R$ </span><span class="sc">{</span>preco_maximo<span class="sc">:.2f}</span><span class="ss"> ▲&lt;/div&gt;'</span>, unsafe_allow_html<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> col3:</span>
+<span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a>    st.markdown(<span class="ss">f'&lt;div class="card minimo"&gt;Preço Mais Baixo: R$ </span><span class="sc">{</span>preco_minimo<span class="sc">:.2f}</span><span class="ss"> ▼&lt;/div&gt;'</span>, unsafe_allow_html<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a><span class="co"># Novos cards</span></span>
+<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a>col4, col5, col6 <span class="op">=</span> st.columns([<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>])</span>
+<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> col4:</span>
+<span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a>    st.markdown(<span class="ss">f'&lt;div class="card lucro"&gt;Custo Total: R$ </span><span class="sc">{</span>custo_total<span class="sc">:.2f}</span><span class="ss">&lt;/div&gt;'</span>, unsafe_allow_html<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> col5:</span>
+<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a>    st.markdown(<span class="ss">f'&lt;div class="card mais-vendido"&gt;Produto Mais Vendido: </span><span class="sc">{</span>produto_mais_vendido<span class="sc">}</span><span class="ss">&lt;/div&gt;'</span>, unsafe_allow_html<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> col6:</span>
+<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a>    st.markdown(<span class="ss">f'&lt;div class="card menos-vendido"&gt;Produto Menos Vendido: </span><span class="sc">{</span>produto_menos_vendido<span class="sc">}</span><span class="ss">&lt;/div&gt;'</span>, unsafe_allow_html<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a><span class="co"># Exibir resultados</span></span>
+<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a>st.write(<span class="st">"Resultados filtrados:"</span>)</span>
+<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a>st.dataframe(df_filtrado)</span>
+<span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráficos</span></span>
+<span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a>st.subheader(<span class="st">"Distribuição de Preços e Contagem por Classificação"</span>)</span>
+<span id="cb8-93"><a href="#cb8-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-94"><a href="#cb8-94" aria-hidden="true" tabindex="-1"></a><span class="co"># Layout para os gráficos ocupando toda a largura</span></span>
+<span id="cb8-95"><a href="#cb8-95" aria-hidden="true" tabindex="-1"></a>col7, col8 <span class="op">=</span> st.columns([<span class="dv">1</span>, <span class="dv">1</span>])</span>
+<span id="cb8-96"><a href="#cb8-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-97"><a href="#cb8-97" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> col7:</span>
+<span id="cb8-98"><a href="#cb8-98" aria-hidden="true" tabindex="-1"></a>    st.bar_chart(df_filtrado[<span class="st">'preco'</span>], use_container_width<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-99"><a href="#cb8-99" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> col8:</span>
+<span id="cb8-100"><a href="#cb8-100" aria-hidden="true" tabindex="-1"></a>    classificacao_contagem <span class="op">=</span> df_filtrado[<span class="st">'classificacao'</span>].value_counts()</span>
+<span id="cb8-101"><a href="#cb8-101" aria-hidden="true" tabindex="-1"></a>    st.bar_chart(classificacao_contagem, use_container_width<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-102"><a href="#cb8-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-103"><a href="#cb8-103" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de Boxplot</span></span>
+<span id="cb8-104"><a href="#cb8-104" aria-hidden="true" tabindex="-1"></a>st.subheader(<span class="st">"Análise Gráfica"</span>)</span>
+<span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a>fig_box <span class="op">=</span> px.box(df_filtrado, y<span class="op">=</span><span class="st">'preco'</span>, title<span class="op">=</span><span class="st">'Boxplot de Preços'</span>)</span>
+<span id="cb8-106"><a href="#cb8-106" aria-hidden="true" tabindex="-1"></a>st.plotly_chart(fig_box, use_container_width<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A criação de um dashboard não só facilita a visualização dos dados, mas também permite a tomada de decisões rápidas e informadas. Assim, os varejistas podem ajustar preços em tempo real com base no desempenho de vendas e na concorrência.</p>
 <hr>
 </section>
