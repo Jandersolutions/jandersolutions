@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Janderson B Abreu">
 
-<title>Datacado</title>
+<title>Otimizando a Gestão de Preços no Varejo com Python: Aumente sua Lucratividade</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,29 +21,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,67 +103,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Procurar"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="floating nav-fixed">
@@ -140,8 +115,8 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./src/img/logotipo.png" alt="Logotipo do Datacado" class="navbar-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../src/img/logotipo.png" alt="Logotipo do Datacado" class="navbar-logo">
     </a>
   </div>
             <div id="quarto-search" class="" title="Procurar"></div>
@@ -151,7 +126,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -200,181 +175,186 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Datacado</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">Otimizando a Gestão de Preços no Varejo com Python: Aumente sua Lucratividade</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Varejo e Atacado</div>
+                <div class="quarto-category">Ciência de Dados</div>
+                <div class="quarto-category">Inteligência Artificial</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Autor</div>
+      <div class="quarto-title-meta-contents">
+               <p>Janderson B Abreu </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Data de Publicação</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">22 de outubro de 2024</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução">1. Introdução</a></li>
+  <li><a href="#coleta-e-preparo-de-dados-relevantes" id="toc-coleta-e-preparo-de-dados-relevantes" class="nav-link" data-scroll-target="#coleta-e-preparo-de-dados-relevantes">2. Coleta e Preparo de Dados Relevantes</a>
+  <ul class="collapse">
+  <li><a href="#exemplos-de-limpeza-de-dados-com-pandas" id="toc-exemplos-de-limpeza-de-dados-com-pandas" class="nav-link" data-scroll-target="#exemplos-de-limpeza-de-dados-com-pandas">Exemplos de Limpeza de Dados com Pandas</a></li>
+  </ul></li>
+  <li><a href="#modelagem-de-preços-com-machine-learning" id="toc-modelagem-de-preços-com-machine-learning" class="nav-link" data-scroll-target="#modelagem-de-preços-com-machine-learning">3. Modelagem de Preços com Machine Learning</a>
+  <ul class="collapse">
+  <li><a href="#exemplo-de-regressão-linear" id="toc-exemplo-de-regressão-linear" class="nav-link" data-scroll-target="#exemplo-de-regressão-linear">Exemplo de Regressão Linear</a></li>
+  </ul></li>
+  <li><a href="#implementação-e-monitoramento" id="toc-implementação-e-monitoramento" class="nav-link" data-scroll-target="#implementação-e-monitoramento">4. Implementação e Monitoramento</a>
+  <ul class="collapse">
+  <li><a href="#exemplo-de-dashboard-com-streamlit" id="toc-exemplo-de-dashboard-com-streamlit" class="nav-link" data-scroll-target="#exemplo-de-dashboard-com-streamlit">Exemplo de Dashboard com Streamlit</a></li>
+  </ul></li>
+  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão">5. Conclusão</a>
+  <ul class="collapse">
+  <li><a href="#referências" id="toc-referências" class="nav-link" data-scroll-target="#referências">Referências</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-    <h5 class="quarto-listing-category-title">Categorias</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">Todos <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Análise de Dados">Análise de Dados <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Análise de Vendas">Análise de Vendas <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Ciência de Dados">Ciência de Dados <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Inteligência Artificial">Inteligência Artificial <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Varejo e Atacado">Varejo e Atacado <span class="quarto-category-count">(2)</span></div><div class="category" data-category="analysis">analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="code">code <span class="quarto-category-count">(1)</span></div><div class="category" data-category="news">news <span class="quarto-category-count">(2)</span></div></div></div>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
+<p><img src="image.jpg" class="img-fluid"> # Otimizando a Gestão de Preços no Varejo com Python: Aumente sua Lucratividade</p>
+<section id="introdução" class="level2">
+<h2 class="anchored" data-anchor-id="introdução">1. Introdução</h2>
+<p>A <strong>precificação estratégica</strong> é uma das principais ferramentas que um varejista possui para influenciar as vendas e maximizar a lucratividade. No mundo do varejo e atacado, onde a concorrência é acirrada e as margens de lucro estão frequentemente sob pressão, a capacidade de ajustar os preços de forma eficaz se torna um diferencial crucial. Segundo <strong>Kotler e Keller (2016)</strong> , “o preço é um dos mais poderosos instrumentos de marketing e, quando bem utilizado, pode ser a chave para a sobrevivência e o crescimento de uma empresa”.Por outro lado, a <strong>precificação manual</strong> enfrenta desafios significativos, como a dependência de intuições ou regras de thumb que podem não refletir a realidade do mercado. <strong>A otimização de preços baseada em dados</strong> não apenas melhora a precisão na definição de preços, mas também proporciona insights sobre a elasticidade da demanda, ajudando os varejistas a maximizar suas margens. Um estudo da <strong>McKinsey</strong> mostra que empresas que implementam estratégias de precificação baseadas em dados podem ver um aumento de até <strong>20% na lucratividade</strong> .</p>
+<hr>
+</section>
+<section id="coleta-e-preparo-de-dados-relevantes" class="level2">
+<h2 class="anchored" data-anchor-id="coleta-e-preparo-de-dados-relevantes">2. Coleta e Preparo de Dados Relevantes</h2>
+<p>A otimização de preços começa com a <strong>coleta de dados relevantes</strong> . Vários fatores influenciam o preço ideal de um produto, incluindo:</p>
+<ul>
+<li><p><strong>Custos de produção</strong></p></li>
+<li><p><strong>Preços dos concorrentes</strong></p></li>
+<li><p><strong>Demanda do consumidor</strong></p></li>
+<li><p><strong>Sazonalidade</strong></p></li>
+<li><p><strong>Dados demográficos</strong> Essas informações podem ser coletadas de diversas fontes, como relatórios internos, pesquisas de mercado e até mesmo através de <strong>web scraping</strong> . Usar bibliotecas Python como <strong>Beautiful Soup</strong> permite que os varejistas extraíam automaticamente preços de concorrentes, oferecendo uma visão competitiva do mercado.</p>
+<h3 id="exemplo-de-web-scraping-com-beautiful-soup" class="anchored">Exemplo de Web Scraping com Beautiful Soup</h3></li>
+</ul>
+<p>Aqui está um exemplo de como você pode usar o Beautiful Soup para extrair preços de um site de concorrência:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bs4 <span class="im">import</span> BeautifulSoup</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># URL do site a ser raspado</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://www.exemplo.com/produtos'</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>resposta <span class="op">=</span> requests.get(url)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Análise da página</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>sopa <span class="op">=</span> BeautifulSoup(resposta.text, <span class="st">'html.parser'</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Encontrar os preços dos produtos</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>precos <span class="op">=</span> sopa.find_all(<span class="st">'span'</span>, class_<span class="op">=</span><span class="st">'preco'</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> preco <span class="kw">in</span> precos:</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(preco.text)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Após coletar os dados, a limpeza e manipulação são essenciais. Utilizar a biblioteca <strong>Pandas</strong> permite que você organize e prepare esses dados para a modelagem, removendo inconsistências e valores ausentes.</p>
+<section id="exemplos-de-limpeza-de-dados-com-pandas" class="level3">
+<h3 class="anchored" data-anchor-id="exemplos-de-limpeza-de-dados-com-pandas">Exemplos de Limpeza de Dados com Pandas</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Carregar dados</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'precos.csv'</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Remover duplicatas</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop_duplicates()</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Preencher valores ausentes</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'preco'</span>].fillna(df[<span class="st">'preco'</span>].mean(), inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+</section>
+<section id="modelagem-de-preços-com-machine-learning" class="level2">
+<h2 class="anchored" data-anchor-id="modelagem-de-preços-com-machine-learning">3. Modelagem de Preços com Machine Learning</h2>
+<p>Com os dados prontos, é hora de aplicar <strong>algoritmos de aprendizado de máquina</strong> para construir modelos de precificação. Métodos como <strong>regressão linear</strong> , <strong>regressão polinomial</strong> e <strong>Random Forest</strong> são algumas das abordagens eficazes.</p>
+<section id="exemplo-de-regressão-linear" class="level3">
+<h3 class="anchored" data-anchor-id="exemplo-de-regressão-linear">Exemplo de Regressão Linear</h3>
+<p>Aqui está um exemplo básico de como implementar uma regressão linear usando a biblioteca <strong>Scikit-learn</strong> :</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Dividir dados em variáveis independentes (X) e dependentes (y)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df[[<span class="st">'custo'</span>, <span class="st">'demanda'</span>]]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">'preco'</span>]</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Dividir em conjunto de treinamento e teste</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>X_treino, X_teste, y_treino, y_teste <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar e treinar o modelo</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>modelo <span class="op">=</span> LinearRegression()</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>modelo.fit(X_treino, y_treino)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Fazer previsões</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>previsoes <span class="op">=</span> modelo.predict(X_teste)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>A comparação entre diferentes modelos pode ser feita utilizando métricas de performance como <strong>RMSE</strong> e <strong>R²</strong> , permitindo que o varejista escolha o modelo mais eficaz.</p>
+<hr>
+</section>
+</section>
+<section id="implementação-e-monitoramento" class="level2">
+<h2 class="anchored" data-anchor-id="implementação-e-monitoramento">4. Implementação e Monitoramento</h2>
+<p>Após a criação do modelo, a próxima etapa é a <strong>implementação</strong> . Integrar os modelos de precificação com os sistemas de gestão existentes é essencial para a aplicação prática. Além disso, é fundamental monitorar continuamente o desempenho dos preços.Para isso, <strong>dashboards</strong> interativos podem ser criados usando bibliotecas como <strong>Dash</strong> ou <strong>Streamlit</strong> , permitindo que os gestores visualizem em tempo real as variações de preço e suas consequências nas vendas. Abaixo, apresentamos um exemplo básico de um dashboard em Streamlit:</p>
+<section id="exemplo-de-dashboard-com-streamlit" class="level3">
+<h3 class="anchored" data-anchor-id="exemplo-de-dashboard-com-streamlit">Exemplo de Dashboard com Streamlit</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> streamlit <span class="im">as</span> st</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Título do aplicativo</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>st.title(<span class="st">'Dashboard de Preços'</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de preços</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>st.line_chart(df[<span class="st">'preco'</span>])</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabela com os dados</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>st.dataframe(df)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>A criação de um dashboard não só facilita a visualização dos dados, mas também permite a tomada de decisões rápidas e informadas. Assim, os varejistas podem ajustar preços em tempo real com base no desempenho de vendas e na concorrência.</p>
+<hr>
+</section>
+</section>
+<section id="conclusão" class="level2">
+<h2 class="anchored" data-anchor-id="conclusão">5. Conclusão</h2>
+<p>A otimização de preços baseada em dados é um caminho eficaz para aumentar a <strong>lucratividade</strong> e a <strong>competitividade</strong> no mercado. Com a combinação certa de coleta de dados, modelagem preditiva e monitoramento contínuo, os varejistas podem não apenas responder às flutuações do mercado, mas também antecipá-las. Ao implementar essas técnicas, os varejistas estão melhor posicionados para maximizar suas margens de lucro e melhorar a satisfação do cliente.Como afirma <strong>Baker (2018)</strong> , “um preço bem definido é mais do que apenas um número; é uma estratégia que pode influenciar o comportamento do consumidor e impulsionar as vendas”.</p>
+<hr>
+<section id="referências" class="level3">
+<h3 class="anchored" data-anchor-id="referências">Referências</h3>
+<ol type="1">
+<li><p>Baker, M. J. (2018). <em>Marketing Strategy and Management</em>. Palgrave Macmillan.</p></li>
+<li><p>Kotler, P., &amp; Keller, K. L. (2016). <em>Marketing Management</em>. Pearson.</p></li>
+<li><p>McKinsey &amp; Company. (2020). <em>Pricing Excellence: How to Boost Profitability</em>.</p></li>
+<li><p>Davenport, T. H. (2013). <em>Analytics at Work: Smarter Decisions, Better Results</em>. Harvard Business Review Press.</p></li>
+</ol>
 
 
+</section>
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="Análise de Dados,Análise de Vendas,Varejo e Atacado" data-listing-date-sort="1729566000000" data-listing-file-modified-sort="1729572629252" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="942">
-<a href="./posts/Análise de Cesta de Compras: Revelando Padrões de Consumo com Python/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./posts/Análise de Cesta de Compras: Revelando Padrões de Consumo com Python/image.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Análise de Cesta de Compras: Revelando Padrões de Consumo com Python
-</h5>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Análise de Dados'); return false;">
-Análise de Dados
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Análise de Vendas'); return false;">
-Análise de Vendas
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Varejo e Atacado'); return false;">
-Varejo e Atacado
-</div>
-</div>
-<div class="card-text listing-description">
-A <strong>análise de cesta de compras</strong> é uma técnica poderosa utilizada por varejistas para entender as preferências dos consumidores. Esta abordagem permite que as empresas decifrem…<strong></strong>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Janderson B Abreu
-</div>
-<div class="listing-date">
-22 de out. de 2024
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="1" data-categories="Varejo e Atacado,Ciência de Dados,Inteligência Artificial" data-listing-date-sort="1729566000000" data-listing-file-modified-sort="1729572535179" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="801">
-<a href="./posts/Otimizando a Gestão de Preços no Varejo com Python/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./posts/Otimizando a Gestão de Preços no Varejo com Python/image.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Otimizando a Gestão de Preços no Varejo com Python: Aumente sua Lucratividade
-</h5>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Varejo e Atacado'); return false;">
-Varejo e Atacado
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Ciência de Dados'); return false;">
-Ciência de Dados
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Inteligência Artificial'); return false;">
-Inteligência Artificial
-</div>
-</div>
-<div class="card-text listing-description">
- # Otimizando a Gestão de Preços no Varejo com Python: Aumente sua Lucratividade
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Janderson B Abreu
-</div>
-<div class="listing-date">
-22 de out. de 2024
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="2" data-categories="news,code,analysis" data-listing-date-sort="1729479600000" data-listing-file-modified-sort="1729491284001" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="9">
-<a href="./posts/post-with-code/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./posts/post-with-code/image.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Post With Code
-</h5>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('news'); return false;">
-news
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('code'); return false;">
-code
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('analysis'); return false;">
-analysis
-</div>
-</div>
-<div class="card-text listing-description">
-This is a post with executable code.
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Harlow Malloc
-</div>
-<div class="listing-date">
-21 de out. de 2024
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="3" data-categories="news" data-listing-date-sort="1729220400000" data-listing-file-modified-sort="1729517070870" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="43">
-<a href="./posts/welcome/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img src="posts/welcome/thumbnail.jpg" style="height: 150px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Welcome To My Blog
-</h5>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('news'); return false;">
-news
-</div>
-</div>
-<div class="card-text listing-description">
-This is the first post in a Quarto blog. Welcome!
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Tristan O’Malley
-</div>
-<div class="listing-date">
-18 de out. de 2024
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-Sem itens correspondentes
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

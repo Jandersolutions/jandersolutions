@@ -2,6 +2,8 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/Análise de Cesta de Compras: Revelando Padrões de Consumo com Python/index.html",
+      "/posts/Otimizando a Gestão de Preços no Varejo com Python/index.html",
       "/posts/post-with-code/index.html",
       "/posts/welcome/index.html"
     ]
