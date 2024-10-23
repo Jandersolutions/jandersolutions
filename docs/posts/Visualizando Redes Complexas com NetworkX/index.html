@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Janderson B Abreu">
 
-<title>Datacado</title>
+<title>Visualizando Redes Complexas com NetworkX</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,26 +24,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,67 +69,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Procurar"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="floating nav-fixed">
@@ -140,8 +81,8 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./src/img/logotipo.png" alt="Logotipo do Datacado" class="navbar-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../src/img/logotipo.png" alt="Logotipo do Datacado" class="navbar-logo">
     </a>
   </div>
             <div id="quarto-search" class="" title="Procurar"></div>
@@ -151,7 +92,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -200,261 +141,136 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Datacado</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">Visualizando Redes Complexas com NetworkX</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Varejo e Atacado</div>
+                <div class="quarto-category">Ciência de Dados</div>
+                <div class="quarto-category">Inteligência Artificial</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Autor</div>
+      <div class="quarto-title-meta-contents">
+               <p>Janderson B Abreu </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Data de Publicação</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">24 de outubro de 2024</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#criar-um-grafo-vazio" id="toc-criar-um-grafo-vazio" class="nav-link active" data-scroll-target="#criar-um-grafo-vazio">Criar um grafo vazio</a></li>
+  <li><a href="#adicionar-nós" id="toc-adicionar-nós" class="nav-link" data-scroll-target="#adicionar-nós">Adicionar nós</a></li>
+  <li><a href="#adicionar-uma-aresta-entre-os-nós" id="toc-adicionar-uma-aresta-entre-os-nós" class="nav-link" data-scroll-target="#adicionar-uma-aresta-entre-os-nós">Adicionar uma aresta entre os nós</a></li>
+  <li><a href="#desenhar-o-grafo" id="toc-desenhar-o-grafo" class="nav-link" data-scroll-target="#desenhar-o-grafo">Desenhar o grafo</a></li>
+  <li><a href="#dados-simulados-de-regras-de-associação" id="toc-dados-simulados-de-regras-de-associação" class="nav-link" data-scroll-target="#dados-simulados-de-regras-de-associação">Dados simulados de regras de associação</a></li>
+  <li><a href="#criar-o-grafo" id="toc-criar-o-grafo" class="nav-link" data-scroll-target="#criar-o-grafo">Criar o grafo</a></li>
+  <li><a href="#desenhar-o-grafo-1" id="toc-desenhar-o-grafo-1" class="nav-link" data-scroll-target="#desenhar-o-grafo-1">Desenhar o grafo</a></li>
+  <li><a href="#desenhar-as-arestas-ponderadas-pelo-lift" id="toc-desenhar-as-arestas-ponderadas-pelo-lift" class="nav-link" data-scroll-target="#desenhar-as-arestas-ponderadas-pelo-lift">Desenhar as arestas ponderadas pelo lift</a></li>
+  </ul>
+</nav>
+</nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-    <h5 class="quarto-listing-category-title">Categorias</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">Todos <span class="quarto-category-count">(6)</span></div><div class="category" data-category="Análise de Dados">Análise de Dados <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Análise de Vendas">Análise de Vendas <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Ciência de Dados">Ciência de Dados <span class="quarto-category-count">(5)</span></div><div class="category" data-category="Inteligência Artificial">Inteligência Artificial <span class="quarto-category-count">(5)</span></div><div class="category" data-category="Varejo e Atacado">Varejo e Atacado <span class="quarto-category-count">(6)</span></div></div></div>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
+<p><img src="image.jpg" class="img-fluid"></p>
+<ol type="1">
+<li>Introdução: Visualizando Redes Complexas com NetworkX</li>
+</ol>
+<p>No mundo dos dados, compreender a interconexão entre diferentes elementos pode revelar insights valiosos. A visualização de redes é uma ferramenta essencial para identificar e entender as relações entre os nós de uma rede complexa. O NetworkX, uma biblioteca Python, é amplamente utilizada para essa finalidade, permitindo a criação, manipulação e estudo de redes complexas.</p>
+<p>Como afirma Newman (2018), “as redes são uma forma poderosa de modelar sistemas complexos, desde relações sociais até padrões de comércio”. O NetworkX facilita a construção dessas representações gráficas, proporcionando uma maneira visual de explorar e comunicar padrões ocultos nos dados. 2. O que é NetworkX?</p>
+<p>O NetworkX é uma biblioteca de Python voltada para a criação e manipulação de grafos ou redes complexas. Ele permite modelar relações entre entidades (representadas por nós) e suas conexões (arestas). Esse tipo de análise é particularmente útil em diversos domínios, como:</p>
+<pre><code>Análise de Redes Sociais: Visualizar conexões entre pessoas ou grupos.
+Padrões de Compras: Mostrar associações entre produtos em um mercado.
+Infraestruturas de Rede: Analisar redes de computadores ou sistemas de transporte.</code></pre>
+<p>Estrutura Básica de um Grafo</p>
+<p>Os componentes essenciais de um grafo são:</p>
+<pre><code>Nó (Node): Representa uma entidade, como um produto, pessoa ou cidade.
+Aresta (Edge): Representa a conexão ou relação entre dois nós.</code></pre>
+<p>Com o NetworkX, é possível construir redes dirigidas (onde as conexões têm direção) e não dirigidas, dependendo do tipo de relacionamento que se deseja modelar. 3. Criando um Grafo Simples com NetworkX Exemplo Básico de Implementação</p>
+<p>Aqui está um exemplo de como criar um grafo simples com dois nós e uma aresta usando NetworkX:</p>
+<p>python</p>
+<p>import networkx as nx import matplotlib.pyplot as plt</p>
+<section id="criar-um-grafo-vazio" class="level1">
+<h1>Criar um grafo vazio</h1>
+<p>G = nx.Graph()</p>
+</section>
+<section id="adicionar-nós" class="level1">
+<h1>Adicionar nós</h1>
+<p>G.add_node(“Produto A”) G.add_node(“Produto B”)</p>
+</section>
+<section id="adicionar-uma-aresta-entre-os-nós" class="level1">
+<h1>Adicionar uma aresta entre os nós</h1>
+<p>G.add_edge(“Produto A”, “Produto B”)</p>
+</section>
+<section id="desenhar-o-grafo" class="level1">
+<h1>Desenhar o grafo</h1>
+<p>nx.draw(G, with_labels=True, node_color=‘lightblue’, font_weight=‘bold’) plt.show()</p>
+<p>Neste exemplo, criamos um grafo simples com dois produtos (nós) e uma conexão entre eles (aresta). A biblioteca matplotlib é usada para desenhar e visualizar o grafo. 4. Aplicação Prática: Regras de Associação com NetworkX</p>
+<p>No contexto de análise de cestas de compras, o NetworkX pode ser utilizado para visualizar as relações entre produtos comprados juntos. Isso é feito através da criação de redes onde os nós são produtos e as arestas representam a frequência com que esses produtos são comprados em conjunto. Exemplo: Visualizando Regras de Associação</p>
+<p>Imagine que temos um conjunto de dados com produtos comprados juntos, e queremos visualizar quais produtos estão fortemente associados. Podemos usar regras de associação (geradas por algoritmos como o Apriori) e visualizar os resultados com NetworkX.</p>
+<p>python</p>
+<p>import pandas as pd import networkx as nx import matplotlib.pyplot as plt</p>
+</section>
+<section id="dados-simulados-de-regras-de-associação" class="level1">
+<h1>Dados simulados de regras de associação</h1>
+<p>regras = pd.DataFrame({ ‘antecedents’: [‘Produto A’, ‘Produto B’, ‘Produto C’], ‘consequents’: [‘Produto B’, ‘Produto C’, ‘Produto D’], ‘lift’: [2.5, 3.1, 1.8] })</p>
+</section>
+<section id="criar-o-grafo" class="level1">
+<h1>Criar o grafo</h1>
+<p>G = nx.from_pandas_edgelist(regras, source=‘antecedents’, target=‘consequents’, edge_attr=‘lift’)</p>
+</section>
+<section id="desenhar-o-grafo-1" class="level1">
+<h1>Desenhar o grafo</h1>
+<p>plt.figure(figsize=(8, 6)) pos = nx.spring_layout(G) # Layout para o grafo nx.draw(G, pos, with_labels=True, node_color=‘lightgreen’, font_size=12, font_weight=‘bold’)</p>
+</section>
+<section id="desenhar-as-arestas-ponderadas-pelo-lift" class="level1">
+<h1>Desenhar as arestas ponderadas pelo lift</h1>
+<p>edges = nx.get_edge_attributes(G, ‘lift’) nx.draw_networkx_edge_labels(G, pos, edge_labels=edges)</p>
+<p>plt.title(‘Rede de Regras de Associação entre Produtos’) plt.show()</p>
+<p>Nesse exemplo, criamos um gráfico de rede onde os produtos representam os nós, e as arestas entre eles são ponderadas pela métrica de lift, que indica a força da associação entre os produtos. Isso facilita a visualização de quais produtos têm maior probabilidade de serem comprados juntos. 5. Análise de Redes e Oportunidades de Negócios</p>
+<p>A visualização de regras de associação em forma de rede pode ser utilizada por varejistas para otimizar seu sortimento de produtos e criar promoções cruzadas. Por exemplo:</p>
+<pre><code>Promoções Cruzadas: Identificar produtos fortemente associados e oferecer descontos conjuntos.
+Layout de Loja: Organizar os produtos frequentemente comprados juntos em locais próximos, facilitando a compra.</code></pre>
+<p>Insights Adicionais</p>
+<p>As métricas calculadas nas redes, como grau (o número de conexões de um nó) e centralidade (a importância de um nó na rede), podem fornecer insights adicionais. Produtos com um alto grau, por exemplo, são mais centrais e frequentemente comprados com outros, sendo alvos interessantes para promoções. 6. Conclusão</p>
+<p>O NetworkX é uma poderosa ferramenta para a visualização e análise de redes complexas. No varejo, sua aplicação permite compreender melhor as relações entre produtos e consumidores, proporcionando insights valiosos que podem ser transformados em ações estratégicas.</p>
+<p>A combinação de técnicas de mineração de dados e visualização com o NetworkX oferece uma nova dimensão para a análise de cestas de compras, ajudando empresas a otimizar seus estoques, promoções e layout de loja. Conforme relatado por Kaggle (2021), “a capacidade de visualizar dados complexos ajuda os varejistas a tomar decisões mais informadas e ágeis”. Referências</p>
+<pre><code>Kaggle. (2021). Data Science in Retail. Disponível em kaggle.com.
+Newman, M. E. J. (2018). Networks: An Introduction. Oxford University Press.</code></pre>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="Varejo e Atacado,Ciência de Dados,Inteligência Artificial" data-listing-date-sort="1729738800000" data-listing-file-modified-sort="1729700533064" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="789">
-<a href="./posts/Visualizando Redes Complexas com NetworkX/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./posts/Visualizando Redes Complexas com NetworkX/image.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Visualizando Redes Complexas com NetworkX
-</h5>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Varejo e Atacado'); return false;">
-Varejo e Atacado
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Ciência de Dados'); return false;">
-Ciência de Dados
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Inteligência Artificial'); return false;">
-Inteligência Artificial
-</div>
-</div>
-<div class="card-text listing-description">
-No mundo dos dados, compreender a interconexão entre diferentes elementos pode revelar insights valiosos. A visualização de redes é uma ferramenta essencial para identificar…
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Janderson B Abreu
-</div>
-<div class="listing-date">
-24 de out. de 2024
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="1" data-categories="Varejo e Atacado,Ciência de Dados,Inteligência Artificial" data-listing-date-sort="1729738800000" data-listing-file-modified-sort="1729699443320" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="777">
-<a href="./posts/Segmentação de Clientes para Campanhas de Marketing Personalizadas/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./posts/Segmentação de Clientes para Campanhas de Marketing Personalizadas/image.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Segmentação de Clientes para Campanhas de Marketing Personalizadas
-</h5>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Varejo e Atacado'); return false;">
-Varejo e Atacado
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Ciência de Dados'); return false;">
-Ciência de Dados
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Inteligência Artificial'); return false;">
-Inteligência Artificial
-</div>
-</div>
-<div class="card-text listing-description">
-Em um mercado cada vez mais competitivo, <strong>criar campanhas de marketing efetivas</strong> se tornou um desafio primordial para empresas de todos os tamanhos. As marcas enfrentam um…<strong></strong><strong></strong><strong></strong><strong></strong><strong></strong>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Janderson B Abreu
-</div>
-<div class="listing-date">
-24 de out. de 2024
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="2" data-categories="Varejo e Atacado,Ciência de Dados,Inteligência Artificial" data-listing-date-sort="1729652400000" data-listing-file-modified-sort="1729613395096" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="751">
-<a href="./posts/Previsão de Demanda Sazonal no Varejo com Séries Temporais/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./posts/Previsão de Demanda Sazonal no Varejo com Séries Temporais/image.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Previsão de Demanda Sazonal no Varejo com Séries Temporais em Python
-</h5>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Varejo e Atacado'); return false;">
-Varejo e Atacado
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Ciência de Dados'); return false;">
-Ciência de Dados
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Inteligência Artificial'); return false;">
-Inteligência Artificial
-</div>
-</div>
-<div class="card-text listing-description">
-A <strong>previsão de demanda sazonal</strong> é um componente crucial na gestão de estoques e vendas, especialmente em setores como o varejo. <strong>Entender as variações sazonais na demanda</strong> permit…<strong></strong><strong></strong>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Janderson B Abreu
-</div>
-<div class="listing-date">
-23 de out. de 2024
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="3" data-categories="Varejo e Atacado,Ciência de Dados,Inteligência Artificial" data-listing-date-sort="1729652400000" data-listing-file-modified-sort="1729614149385" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1781">
-<a href="./posts/Ruptura de Estoque: Como Evitar Perder Vendas/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./posts/Ruptura de Estoque: Como Evitar Perder Vendas/image.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Ruptura de Estoque: Como Evitar Perder Vendas Usando Python
-</h5>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Varejo e Atacado'); return false;">
-Varejo e Atacado
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Ciência de Dados'); return false;">
-Ciência de Dados
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Inteligência Artificial'); return false;">
-Inteligência Artificial
-</div>
-</div>
-<div class="card-text listing-description">
-O gerenciamento de estoque é uma das atividades mais críticas no setor de varejo e atacado, onde cada decisão pode impactar diretamente as finanças da empresa e a satisfação…<strong></strong><strong></strong><strong></strong>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Janderson B Abreu
-</div>
-<div class="listing-date">
-23 de out. de 2024
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="4" data-categories="Análise de Dados,Análise de Vendas,Varejo e Atacado" data-listing-date-sort="1729566000000" data-listing-file-modified-sort="1729574728090" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="927">
-<a href="./posts/Análise de Cesta de Compras: Revelando Padrões de Consumo com Python/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./posts/Análise de Cesta de Compras: Revelando Padrões de Consumo com Python/image.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Análise de Cesta de Compras: Revelando Padrões de Consumo com Python
-</h5>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Análise de Dados'); return false;">
-Análise de Dados
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Análise de Vendas'); return false;">
-Análise de Vendas
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Varejo e Atacado'); return false;">
-Varejo e Atacado
-</div>
-</div>
-<div class="card-text listing-description">
-A <strong>análise de cesta de compras</strong> é uma técnica poderosa utilizada por varejistas para entender as preferências dos consumidores. Esta abordagem permite que as empresas decifrem…<strong></strong>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Janderson B Abreu
-</div>
-<div class="listing-date">
-22 de out. de 2024
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="5" data-categories="Varejo e Atacado,Ciência de Dados,Inteligência Artificial" data-listing-date-sort="1729566000000" data-listing-file-modified-sort="1729612117627" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-word-count-sort="2079">
-<a href="./posts/Otimizando a Gestão de Preços no Varejo com Python/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./posts/Otimizando a Gestão de Preços no Varejo com Python/image.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Otimizando a Gestão de Preços no Varejo com Python: Aumente sua Lucratividade
-</h5>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Varejo e Atacado'); return false;">
-Varejo e Atacado
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Ciência de Dados'); return false;">
-Ciência de Dados
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Inteligência Artificial'); return false;">
-Inteligência Artificial
-</div>
-</div>
-<div class="card-text listing-description">
-A <strong>precificação estratégica</strong> é uma das principais ferramentas que um varejista possui para influenciar as vendas e maximizar a lucratividade. No mundo do varejo e atacado…<strong></strong><strong></strong><strong></strong><strong></strong><strong></strong>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Janderson B Abreu
-</div>
-<div class="listing-date">
-22 de out. de 2024
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-Sem itens correspondentes
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
