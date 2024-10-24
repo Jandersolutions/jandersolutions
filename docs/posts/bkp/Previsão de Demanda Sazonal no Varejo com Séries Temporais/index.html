@@ -7,9 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Janderson B Abreu">
-<meta name="description" content="Este artigo explora a análise de cesta de compras usando o algoritmo Apriori com Python. Entenda como identificar padrões de consumo, otimizar vendas no varejo e implementar estratégias de marketing eficientes com base em dados reais.">
 
-<title>Análise de Cesta de Compras: Revelando Padrões de Consumo com Python</title>
+<title>Previsão de Demanda Sazonal no Varejo com Séries Temporais em Python</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -59,24 +58,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -106,7 +105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../../../styles.css">
 </head>
 
 <body class="floating nav-fixed">
@@ -116,8 +115,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../src/img/logotipo.png" alt="Logotipo do Datacado" class="navbar-logo">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../src/img/logotipo.png" alt="Logotipo do Datacado" class="navbar-logo">
     </a>
   </div>
             <div id="quarto-search" class="" title="Procurar"></div>
@@ -127,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
+    <a class="nav-link" href="../../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -177,16 +176,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Análise de Cesta de Compras: Revelando Padrões de Consumo com Python</h1>
-                  <div>
-        <div class="description">
-          Descubra como a análise de cesta de compras com Python pode revelar padrões de consumo e otimizar as operações no varejo. Aprenda a usar o algoritmo Apriori para identificar produtos frequentemente comprados juntos e aumentar as vendas através de promoções eficazes.
-        </div>
-      </div>
-                          <div class="quarto-categories">
-                <div class="quarto-category">Análise de Dados</div>
-                <div class="quarto-category">Análise de Vendas</div>
+      <h1 class="title">Previsão de Demanda Sazonal no Varejo com Séries Temporais em Python</h1>
+                                <div class="quarto-categories">
                 <div class="quarto-category">Varejo e Atacado</div>
+                <div class="quarto-category">Ciência de Dados</div>
+                <div class="quarto-category">Inteligência Artificial</div>
               </div>
                   </div>
   </div>
@@ -204,7 +198,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Data de Publicação</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">22 de outubro de 2024</p>
+        <p class="date">23 de outubro de 2024</p>
       </div>
     </div>
     
@@ -219,24 +213,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Nesta página</h2>
    
   <ul>
-  <li><a href="#introdução-decodificando-o-comportamento-do-consumidor" id="toc-introdução-decodificando-o-comportamento-do-consumidor" class="nav-link active" data-scroll-target="#introdução-decodificando-o-comportamento-do-consumidor">1. Introdução: Decodificando o Comportamento do Consumidor</a></li>
-  <li><a href="#regras-de-associação-e-o-algoritmo-apriori" id="toc-regras-de-associação-e-o-algoritmo-apriori" class="nav-link" data-scroll-target="#regras-de-associação-e-o-algoritmo-apriori">2. Regras de Associação e o Algoritmo Apriori</a>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução">1. Introdução</a></li>
+  <li><a href="#análise-de-séries-temporais-com-python" id="toc-análise-de-séries-temporais-com-python" class="nav-link" data-scroll-target="#análise-de-séries-temporais-com-python">2. Análise de Séries Temporais com Python</a>
   <ul class="collapse">
-  <li><a href="#o-que-são-regras-de-associação" id="toc-o-que-são-regras-de-associação" class="nav-link" data-scroll-target="#o-que-são-regras-de-associação">O que são Regras de Associação?</a></li>
-  <li><a href="#o-algoritmo-apriori" id="toc-o-algoritmo-apriori" class="nav-link" data-scroll-target="#o-algoritmo-apriori">O Algoritmo Apriori</a></li>
+  <li><a href="#bibliotecas-python-para-análise-de-séries-temporais" id="toc-bibliotecas-python-para-análise-de-séries-temporais" class="nav-link" data-scroll-target="#bibliotecas-python-para-análise-de-séries-temporais">Bibliotecas Python para Análise de Séries Temporais</a></li>
   </ul></li>
-  <li><a href="#encontrando-insights-e-oportunidades-de-negócios" id="toc-encontrando-insights-e-oportunidades-de-negócios" class="nav-link" data-scroll-target="#encontrando-insights-e-oportunidades-de-negócios">3. Encontrando Insights e Oportunidades de Negócios</a>
+  <li><a href="#modelagem-e-previsão-de-demanda-sazonal" id="toc-modelagem-e-previsão-de-demanda-sazonal" class="nav-link" data-scroll-target="#modelagem-e-previsão-de-demanda-sazonal">3. Modelagem e Previsão de Demanda Sazonal</a>
   <ul class="collapse">
-  <li><a href="#exemplos-de-aplicações-práticas" id="toc-exemplos-de-aplicações-práticas" class="nav-link" data-scroll-target="#exemplos-de-aplicações-práticas">Exemplos de Aplicações Práticas</a></li>
+  <li><a href="#implementação-do-modelo-arima" id="toc-implementação-do-modelo-arima" class="nav-link" data-scroll-target="#implementação-do-modelo-arima">Implementação do Modelo ARIMA</a></li>
+  <li><a href="#holt-winters-para-previsão-sazonal" id="toc-holt-winters-para-previsão-sazonal" class="nav-link" data-scroll-target="#holt-winters-para-previsão-sazonal">Holt-Winters para Previsão Sazonal</a></li>
   </ul></li>
-  <li><a href="#visualização-de-dados-para-melhor-compreensão" id="toc-visualização-de-dados-para-melhor-compreensão" class="nav-link" data-scroll-target="#visualização-de-dados-para-melhor-compreensão">4. Visualização de Dados para Melhor Compreensão</a>
+  <li><a href="#avaliação-e-otimização-do-modelo" id="toc-avaliação-e-otimização-do-modelo" class="nav-link" data-scroll-target="#avaliação-e-otimização-do-modelo">4. Avaliação e Otimização do Modelo</a>
   <ul class="collapse">
-  <li><a href="#usando-bibliotecas-python-para-visualização" id="toc-usando-bibliotecas-python-para-visualização" class="nav-link" data-scroll-target="#usando-bibliotecas-python-para-visualização">Usando Bibliotecas Python para Visualização</a></li>
+  <li><a href="#ajuste-de-hiperparâmetros" id="toc-ajuste-de-hiperparâmetros" class="nav-link" data-scroll-target="#ajuste-de-hiperparâmetros">Ajuste de Hiperparâmetros</a></li>
   </ul></li>
   <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão">5. Conclusão</a>
   <ul class="collapse">
   <li><a href="#referências" id="toc-referências" class="nav-link" data-scroll-target="#referências">Referências</a></li>
-  <li><a href="#como-citar-este-artigo" id="toc-como-citar-este-artigo" class="nav-link" data-scroll-target="#como-citar-este-artigo">Como citar este artigo</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -253,145 +246,101 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><img src="image.jpg" class="img-fluid"></p>
-<section id="introdução-decodificando-o-comportamento-do-consumidor" class="level2">
-<h2 class="anchored" data-anchor-id="introdução-decodificando-o-comportamento-do-consumidor">1. Introdução: Decodificando o Comportamento do Consumidor</h2>
-<p>A <strong>análise de cesta de compras</strong> é uma técnica poderosa utilizada por varejistas para entender as preferências dos consumidores. Esta abordagem permite que as empresas decifrem o comportamento do cliente e revelem padrões de consumo que podem ser cruciais para o sucesso no competitivo mundo do varejo. Como afirma <strong>Groceryshop (2020)</strong><sup><a href="#ref1">1</a></sup> , “conhecer o que os clientes compram em conjunto é essencial para maximizar a receita e aprimorar a experiência de compra”. Compreender o que os consumidores estão comprando em conjunto possibilita aos varejistas otimizar o sortimento de produtos, ajustar estratégias de precificação e criar promoções mais eficazes. A análise de cesta de compras não apenas ajuda a aumentar as vendas, mas também melhora a fidelização do cliente, já que oferece uma experiência de compra mais personalizada e alinhada com as suas necessidades.</p>
-<p>Assim, a análise de cesta de compras se torna uma ferramenta indispensável para qualquer varejista que deseja se destacar em um mercado cada vez mais exigente.</p>
+<section id="introdução" class="level2">
+<h2 class="anchored" data-anchor-id="introdução">1. Introdução</h2>
+<p>A <strong>previsão de demanda sazonal</strong> é um componente crucial na gestão de estoques e vendas, especialmente em setores como o varejo. <strong>Entender as variações sazonais na demanda</strong> permite que as empresas otimizem suas operações, minimizando custos e maximizando a receita. Como afirmam <strong>Chase et al.&nbsp;(2013)</strong> , “a previsão precisa é um dos principais determinantes do sucesso na operação do varejo”.Quando as empresas não conseguem prever adequadamente a demanda, podem enfrentar consequências graves. A falta de estoque durante períodos de alta demanda resulta em vendas perdidas e insatisfação do cliente, enquanto o excesso de estoque em períodos de baixa demanda leva a custos desnecessários e produtos obsoletos. Portanto, a aplicação de técnicas de <strong>séries temporais</strong> é fundamental para garantir uma gestão eficaz do estoque.</p>
 <hr>
 </section>
-<section id="regras-de-associação-e-o-algoritmo-apriori" class="level2">
-<h2 class="anchored" data-anchor-id="regras-de-associação-e-o-algoritmo-apriori">2. Regras de Associação e o Algoritmo Apriori</h2>
-<section id="o-que-são-regras-de-associação" class="level3">
-<h3 class="anchored" data-anchor-id="o-que-são-regras-de-associação">O que são Regras de Associação?</h3>
-<p>As <strong>regras de associação</strong> são uma técnica utilizada na <strong>mineração de dados</strong> para descobrir relações entre produtos comprados em conjunto. Essas regras ajudam a identificar padrões de compra que podem não ser imediatamente evidentes apenas pela análise dos dados brutos. Por exemplo, um varejista pode descobrir que quando um cliente compra pão, ele frequentemente também compra manteiga, o que pode influenciar promoções e organização de produtos na loja.</p>
-</section>
-<section id="o-algoritmo-apriori" class="level3">
-<h3 class="anchored" data-anchor-id="o-algoritmo-apriori">O Algoritmo Apriori</h3>
-<p>O <strong>algoritmo Apriori</strong> é uma das ferramentas mais populares para encontrar padrões frequentes em grandes conjuntos de dados de transações. Ele utiliza um método iterativo para identificar combinações de itens que aparecem com frequência em cestas de compras. O algoritmo é baseado no princípio de que se um item é comum em uma cesta de compras, então todos os subconjuntos de itens associados também devem ser frequentes.</p>
-<section id="implementação-do-algoritmo-apriori-em-python" class="level4">
-<h4 class="anchored" data-anchor-id="implementação-do-algoritmo-apriori-em-python">Implementação do Algoritmo Apriori em Python</h4>
-<p>Para implementar o algoritmo Apriori em Python, utilizamos a biblioteca <strong>Mlxtend</strong> <sup><a href="#ref4">4</a></sup> . Veja um exemplo prático:</p>
-<div id="f74a78b3" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mlxtend.frequent_patterns <span class="im">import</span> apriori, association_rules</span>
+<section id="análise-de-séries-temporais-com-python" class="level2">
+<h2 class="anchored" data-anchor-id="análise-de-séries-temporais-com-python">2. Análise de Séries Temporais com Python</h2>
+<p>O conceito de <strong>séries temporais</strong> envolve a coleta e análise de dados ao longo do tempo, o que é vital para identificar padrões e prever futuras variações. As séries temporais são particularmente úteis na previsão de demanda, pois permitem analisar como fatores sazonais, tendências e ciclos afetam o comportamento do consumidor.</p>
+<section id="bibliotecas-python-para-análise-de-séries-temporais" class="level3">
+<h3 class="anchored" data-anchor-id="bibliotecas-python-para-análise-de-séries-temporais">Bibliotecas Python para Análise de Séries Temporais</h3>
+<p>Duas bibliotecas populares para a análise de séries temporais em Python são <strong>Statsmodels</strong> e <strong>Prophet</strong> . Ambas oferecem ferramentas robustas para decompor séries temporais, identificar <strong>tendências</strong> , <strong>sazonalidade</strong> e <strong>ruído</strong> nos dados.</p>
+<section id="exemplo-de-decomposição-com-statsmodels" class="level4">
+<h4 class="anchored" data-anchor-id="exemplo-de-decomposição-com-statsmodels">Exemplo de Decomposição com Statsmodels</h4>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemplo de estrutura de transações (cada linha representando uma transação)</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>dados <span class="op">=</span> {<span class="st">'Leite'</span>: [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>],</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>         <span class="st">'Café'</span>: [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>         <span class="st">'Pão'</span>: [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>],</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>         <span class="st">'Queijo'</span>: [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>]}</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar DataFrame</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(dados)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Gerar itemsets frequentes</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>frequent_itemsets <span class="op">=</span> apriori(df, min_support<span class="op">=</span><span class="fl">0.2</span>, use_colnames<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Gerar regras de associação</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>regras <span class="op">=</span> association_rules(frequent_itemsets, metric<span class="op">=</span><span class="st">"lift"</span>, min_threshold<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Exibir regras</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(regras)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>       antecedents      consequents  antecedent support  consequent support  \
-0           (Café)          (Leite)                 0.6                 0.6   
-1          (Leite)           (Café)                 0.6                 0.6   
-2            (Pão)          (Leite)                 0.6                 0.6   
-3          (Leite)            (Pão)                 0.6                 0.6   
-4         (Queijo)            (Pão)                 0.6                 0.6   
-5            (Pão)         (Queijo)                 0.6                 0.6   
-6      (Pão, Café)          (Leite)                 0.2                 0.6   
-7          (Leite)      (Pão, Café)                 0.6                 0.2   
-8  (Queijo, Leite)            (Pão)                 0.2                 0.6   
-9            (Pão)  (Queijo, Leite)                 0.6                 0.2   
-
-   support  confidence      lift  leverage  conviction  zhangs_metric  
-0      0.4    0.666667  1.111111      0.04         1.2           0.25  
-1      0.4    0.666667  1.111111      0.04         1.2           0.25  
-2      0.4    0.666667  1.111111      0.04         1.2           0.25  
-3      0.4    0.666667  1.111111      0.04         1.2           0.25  
-4      0.4    0.666667  1.111111      0.04         1.2           0.25  
-5      0.4    0.666667  1.111111      0.04         1.2           0.25  
-6      0.2    1.000000  1.666667      0.08         inf           0.50  
-7      0.2    0.333333  1.666667      0.08         1.2           1.00  
-8      0.2    1.000000  1.666667      0.08         inf           0.50  
-9      0.2    0.333333  1.666667      0.08         1.2           1.00  </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/home/janderscience/Projeto/site/Datacado/env/lib/python3.12/site-packages/mlxtend/frequent_patterns/fpcommon.py:109: DeprecationWarning:
-
-DataFrames with non-bool types result in worse computationalperformance and their support might be discontinued in the future.Please use a DataFrame with bool type
-</code></pre>
-</div>
-</div>
-<p>Neste código, transformamos os dados de transações em um formato adequado para análise, aplicamos o algoritmo Apriori para encontrar conjuntos frequentes e extraímos regras de associação baseadas em uma métrica de elevação (lift).</p>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Carregar dados de vendas</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>dados <span class="op">=</span> pd.read_csv(<span class="st">'vendas.csv'</span>, parse_dates<span class="op">=</span>[<span class="st">'data'</span>], index_col<span class="op">=</span><span class="st">'data'</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Decompor a série temporal</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>decomposicao <span class="op">=</span> sm.tsa.seasonal_decompose(dados[<span class="st">'vendas'</span>], model<span class="op">=</span><span class="st">'additive'</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>decomposicao.plot()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Neste exemplo, utilizamos a função <code>seasonal_decompose</code> da biblioteca Statsmodels para decompor a série temporal em suas componentes: tendência, sazonalidade e resíduo.</p>
 <hr>
 </section>
 </section>
 </section>
-<section id="encontrando-insights-e-oportunidades-de-negócios" class="level2">
-<h2 class="anchored" data-anchor-id="encontrando-insights-e-oportunidades-de-negócios">3. Encontrando Insights e Oportunidades de Negócios</h2>
-<p>Após aplicar o algoritmo Apriori, a próxima etapa é analisar os resultados para identificar produtos frequentemente comprados juntos. Os insights obtidos podem ser extremamente valiosos para os varejistas. Por exemplo, ao descobrir que fraldas e cerveja são frequentemente compradas juntas, os varejistas podem criar <strong>promoções cruzadas</strong> para estimular as vendas. Além disso, esses insights podem ser usados para <strong>otimizar o layout da loja</strong> , posicionando produtos que se complementam próximos uns dos outros, facilitando a compra pelo cliente.</p>
-<section id="exemplos-de-aplicações-práticas" class="level3">
-<h3 class="anchored" data-anchor-id="exemplos-de-aplicações-práticas">Exemplos de Aplicações Práticas</h3>
+<section id="modelagem-e-previsão-de-demanda-sazonal" class="level2">
+<h2 class="anchored" data-anchor-id="modelagem-e-previsão-de-demanda-sazonal">3. Modelagem e Previsão de Demanda Sazonal</h2>
+<p>Após a análise preliminar, o próximo passo é aplicar modelos de séries temporais para prever a demanda em períodos futuros. Modelos como <strong>ARIMA</strong> (AutoRegressive Integrated Moving Average), <strong>SARIMA</strong> (Seasonal ARIMA) e <strong>Holt-Winters</strong> são comumente utilizados para este fim.</p>
+<section id="implementação-do-modelo-arima" class="level3">
+<h3 class="anchored" data-anchor-id="implementação-do-modelo-arima">Implementação do Modelo ARIMA</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.arima.model <span class="im">import</span> ARIMA</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Definir o modelo ARIMA</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>modelo_arima <span class="op">=</span> ARIMA(dados[<span class="st">'vendas'</span>], order<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>modelo_fit <span class="op">=</span> modelo_arima.fit()</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fazer previsões</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>previsao <span class="op">=</span> modelo_fit.forecast(steps<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(previsao)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Este exemplo ilustra como implementar um modelo ARIMA em Python, ajustando os parâmetros de acordo com as características da série temporal.</p>
+</section>
+<section id="holt-winters-para-previsão-sazonal" class="level3">
+<h3 class="anchored" data-anchor-id="holt-winters-para-previsão-sazonal">Holt-Winters para Previsão Sazonal</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.tsa.holtwinters <span class="im">import</span> ExponentialSmoothing</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Definir o modelo Holt-Winters</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>modelo_hw <span class="op">=</span> ExponentialSmoothing(dados[<span class="st">'vendas'</span>], seasonal<span class="op">=</span><span class="st">'add'</span>, seasonal_periods<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>modelo_fit_hw <span class="op">=</span> modelo_hw.fit()</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Fazer previsões</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>previsao_hw <span class="op">=</span> modelo_fit_hw.forecast(steps<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(previsao_hw)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>O modelo Holt-Winters é particularmente útil para dados com componentes sazonais e pode melhorar a precisão das previsões.</p>
+<hr>
+</section>
+</section>
+<section id="avaliação-e-otimização-do-modelo" class="level2">
+<h2 class="anchored" data-anchor-id="avaliação-e-otimização-do-modelo">4. Avaliação e Otimização do Modelo</h2>
+<p>Após a implementação dos modelos, a <strong>avaliação da performance</strong> é essencial. É importante escolher as métricas adequadas para medir a precisão das previsões. Algumas métricas comumente utilizadas incluem:</p>
 <ul>
-<li><p><strong>Promoções Cruzadas</strong> : Compre um pacote de fraldas e leve um desconto na compra de cerveja.</p></li>
-<li><p><strong>Otimização do Layout</strong> : Posicionar fraldas e produtos de higiene ao lado de itens para festas e bebidas, aumentando a probabilidade de compras impulsivas.</p></li>
+<li><p><strong>RMSE (Root Mean Square Error)</strong> : Mede a média das diferenças quadráticas entre as previsões e os valores reais.</p></li>
+<li><p><strong>MAE (Mean Absolute Error)</strong> : Calcula a média das diferenças absolutas entre previsões e valores reais.</p></li>
+<li><p><strong>MAPE (Mean Absolute Percentage Error)</strong> : Avalia a precisão das previsões como uma porcentagem.</p></li>
 </ul>
-<hr>
-</section>
-</section>
-<section id="visualização-de-dados-para-melhor-compreensão" class="level2">
-<h2 class="anchored" data-anchor-id="visualização-de-dados-para-melhor-compreensão">4. Visualização de Dados para Melhor Compreensão</h2>
-<p>A visualização de dados desempenha um papel crucial na interpretação dos resultados da análise de cesta de compras. Ferramentas de visualização ajudam os varejistas a entender melhor as relações entre produtos e a comunicar esses insights de forma clara e intuitiva.</p>
-<section id="usando-bibliotecas-python-para-visualização" class="level3">
-<h3 class="anchored" data-anchor-id="usando-bibliotecas-python-para-visualização">Usando Bibliotecas Python para Visualização</h3>
-<p>Bibliotecas como <strong>NetworkX</strong> e <strong>Plotly</strong> permitem criar representações visuais dos dados de associação, tornando os padrões de consumo mais evidentes. Saiba mais sobre o <strong>NetworkX</strong> <a href="https://jandersolutions.github.io/jandersolutions/posts/Visualizando%20Redes%20Complexas%20com%20NetworkX/">aqui</a></p>
-<section id="exemplo-de-visualização-com-networkx" class="level4">
-<h4 class="anchored" data-anchor-id="exemplo-de-visualização-com-networkx">Exemplo de Visualização com NetworkX</h4>
-<div id="c33ac5a9" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<section id="ajuste-de-hiperparâmetros" class="level3">
+<h3 class="anchored" data-anchor-id="ajuste-de-hiperparâmetros">Ajuste de Hiperparâmetros</h3>
+<p>Ajustar os hiperparâmetros dos modelos pode melhorar significativamente a precisão das previsões. A validação cruzada e técnicas como busca em grade (grid search) podem ser empregadas para encontrar os melhores parâmetros.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> TimeSeriesSplit</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar um gráfico de rede</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.from_pandas_edgelist(regras, source<span class="op">=</span><span class="st">'antecedents'</span>, target<span class="op">=</span><span class="st">'consequents'</span>, edge_attr<span class="op">=</span><span class="st">'lift'</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Definir uma validação cruzada para séries temporais</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>tscv <span class="op">=</span> TimeSeriesSplit(n_splits<span class="op">=</span><span class="dv">5</span>)</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Desenhar o gráfico</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>))</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>nx.draw(G, with_labels<span class="op">=</span><span class="va">True</span>, node_size<span class="op">=</span><span class="dv">3000</span>, node_color<span class="op">=</span><span class="st">'skyblue'</span>, font_size<span class="op">=</span><span class="dv">15</span>, font_weight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Gráfico de Rede das Regras de Associação'</span>)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-3-output-1.png" width="979" height="1000" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Neste exemplo, usamos o <strong>NetworkX</strong> para visualizar as regras de associação, onde cada nó representa um produto e as arestas representam a relação entre eles, ponderada pela métrica de lift. Essa visualização ajuda a identificar rapidamente quais produtos estão mais interconectados e podem ser alvo de estratégias de marketing.</p>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> train_index, test_index <span class="kw">in</span> tscv.split(dados):</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    train, test <span class="op">=</span> dados.iloc[train_index], dados.iloc[test_index]</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    modelo_arima <span class="op">=</span> ARIMA(train[<span class="st">'vendas'</span>], order<span class="op">=</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>)).fit()</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    previsao <span class="op">=</span> modelo_arima.forecast(steps<span class="op">=</span><span class="bu">len</span>(test))</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'RMSE:'</span>, mean_squared_error(test[<span class="st">'vendas'</span>], previsao, squared<span class="op">=</span><span class="va">False</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
-</section>
 </section>
 </section>
 <section id="conclusão" class="level2">
 <h2 class="anchored" data-anchor-id="conclusão">5. Conclusão</h2>
-<p>A <strong>análise de cesta de compras</strong> é uma ferramenta poderosa para entender o comportamento do consumidor e otimizar as operações de varejo. Ao aplicar técnicas de regras de associação, como o algoritmo Apriori, os varejistas podem identificar padrões de compra e encontrar novas oportunidades de negócios. Os insights obtidos a partir dessa análise não só ajudam a melhorar as estratégias de marketing, mas também contribuem para uma melhor experiência do cliente, uma vez que promovem uma personalização que pode aumentar a fidelidade do consumidor. Conforme mencionado por <strong>Wang et al.&nbsp;(2018)</strong> <sup><a href="#ref2">2</a></sup> , “a capacidade de interpretar dados de transações pode transformar a maneira como as empresas se conectam com seus clientes”. Portanto, investir na análise de cesta de compras deve ser uma prioridade para os varejistas que buscam não apenas aumentar as vendas, mas também construir relacionamentos mais fortes com seus clientes.</p>
+<p>A <strong>previsão de demanda sazonal</strong> desempenha um papel fundamental na gestão de estoques e nas estratégias de vendas no varejo. Ao utilizar técnicas de <strong>séries temporais</strong> , as empresas podem otimizar sua operação, antecipando períodos de alta e baixa demanda.Com a aplicação de modelos como ARIMA e Holt-Winters, é possível <strong>tomar decisões informadas</strong> e estratégicas, minimizando os riscos associados à falta ou ao excesso de estoque. Ao adotar uma abordagem baseada em dados, os varejistas podem melhorar sua <strong>eficiência operacional</strong> , aumentar a satisfação do cliente e, por fim, impulsionar a <strong>lucratividade</strong> .Como ressalta <strong>Hyndman e Athanasopoulos (2018)</strong> em seu livro <em>Forecasting: Principles and Practice</em>, “a previsão é um componente essencial em qualquer processo de tomada de decisão”. Portanto, investir em ferramentas de previsão de demanda deve ser uma prioridade para os profissionais do varejo.</p>
 <hr>
 <section id="referências" class="level3">
 <h3 class="anchored" data-anchor-id="referências">Referências</h3>
 <ol type="1">
-<li><p><a id="ref1"></a>Groceryshop. (2020). <em>The Importance of Basket Analysis in Retail</em>. Disponível em <a href="https://www.groceryshop.com/">groceryshop.com</a> .</p></li>
-<li><p><a id="ref2"></a>Wang, Y., Gunasekaran, A., &amp; Ngai, E. W. T. (2018). <em>Big Data in Logistics and Supply Chain Management: Future Directions and the Role of the Researcher</em>. <em>International Journal of Production Economics</em>, 176, 98-110.</p></li>
-<li><p>imagens <em>pexels</em></p></li>
-<li><p><a id="ref4"></a> Mlxtend Documentation. Disponível em mlxtend.readthedocs.io.</p></li>
+<li><p>Chase, C. W., Jacobs, F. R., &amp; Aquilano, N. J. (2013). <em>Operations Management</em>. McGraw-Hill.</p></li>
+<li><p>Hyndman, R. J., &amp; Athanasopoulos, G. (2018). <em>Forecasting: Principles and Practice</em>. OTexts.</p></li>
+<li><p>Box, G. E. P., Jenkins, G. M., &amp; Reinsel, G. C. (2015). <em>Time Series Analysis: Forecasting and Control</em>. Wiley.</p></li>
 </ol>
-<hr>
-</section>
-<section id="como-citar-este-artigo" class="level3">
-<h3 class="anchored" data-anchor-id="como-citar-este-artigo">Como citar este artigo</h3>
-<p>Se você deseja citar este artigo, pode usar o BibTeX abaixo:</p>
-<p><span class="citation" data-cites="article">@article</span>{abreu2024otimizando, title={Otimizando a Gestão de Preços no Varejo com Python}, author={Abreu, Janderson Batista}, year={2024}, url={https://jandersolutions.github.io/jandersolutions/posts/Otimizando%20a%20Gest%C3%A3o%20de%20Pre%C3%A7os%20no%20Varejo%20com%20Python/}, note={Acesso em: 24 out. 2024}, institution={Anhanguera Educacional}, keywords={ciência de dados, otimização de preços, varejo, Python} }</p>
 
 
 </section>
@@ -962,6 +911,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<script src="https://giscus.app/client.js" data-repo="Jandersolutions/jandersolutions" data-repo-id="R_kgDOIrGiqg" data-category="General" data-category-id="DIC_kwDOIrGiqs4CjppG" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="pt-br" crossorigin="anonymous" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="preferred_color_scheme">
+<input type="hidden" id="giscus-alt-theme" value="preferred_color_scheme">
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

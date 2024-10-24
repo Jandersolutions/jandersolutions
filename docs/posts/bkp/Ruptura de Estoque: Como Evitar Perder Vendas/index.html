@@ -7,9 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Janderson B Abreu">
-<meta name="description" content="Este artigo explora a análise de cesta de compras usando o algoritmo Apriori com Python. Entenda como identificar padrões de consumo, otimizar vendas no varejo e implementar estratégias de marketing eficientes com base em dados reais.">
 
-<title>Análise de Cesta de Compras: Revelando Padrões de Consumo com Python</title>
+<title>Ruptura de Estoque: Como Evitar Perder Vendas Usando Python</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -59,24 +58,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -106,7 +105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../../../styles.css">
 </head>
 
 <body class="floating nav-fixed">
@@ -116,8 +115,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../src/img/logotipo.png" alt="Logotipo do Datacado" class="navbar-logo">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../src/img/logotipo.png" alt="Logotipo do Datacado" class="navbar-logo">
     </a>
   </div>
             <div id="quarto-search" class="" title="Procurar"></div>
@@ -127,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
+    <a class="nav-link" href="../../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -177,16 +176,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Análise de Cesta de Compras: Revelando Padrões de Consumo com Python</h1>
-                  <div>
-        <div class="description">
-          Descubra como a análise de cesta de compras com Python pode revelar padrões de consumo e otimizar as operações no varejo. Aprenda a usar o algoritmo Apriori para identificar produtos frequentemente comprados juntos e aumentar as vendas através de promoções eficazes.
-        </div>
-      </div>
-                          <div class="quarto-categories">
-                <div class="quarto-category">Análise de Dados</div>
-                <div class="quarto-category">Análise de Vendas</div>
+      <h1 class="title">Ruptura de Estoque: Como Evitar Perder Vendas Usando Python</h1>
+                                <div class="quarto-categories">
                 <div class="quarto-category">Varejo e Atacado</div>
+                <div class="quarto-category">Ciência de Dados</div>
+                <div class="quarto-category">Inteligência Artificial</div>
               </div>
                   </div>
   </div>
@@ -204,7 +198,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Data de Publicação</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">22 de outubro de 2024</p>
+        <p class="date">23 de outubro de 2024</p>
       </div>
     </div>
     
@@ -219,24 +213,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Nesta página</h2>
    
   <ul>
-  <li><a href="#introdução-decodificando-o-comportamento-do-consumidor" id="toc-introdução-decodificando-o-comportamento-do-consumidor" class="nav-link active" data-scroll-target="#introdução-decodificando-o-comportamento-do-consumidor">1. Introdução: Decodificando o Comportamento do Consumidor</a></li>
-  <li><a href="#regras-de-associação-e-o-algoritmo-apriori" id="toc-regras-de-associação-e-o-algoritmo-apriori" class="nav-link" data-scroll-target="#regras-de-associação-e-o-algoritmo-apriori">2. Regras de Associação e o Algoritmo Apriori</a>
+  <li><a href="#introdução-o-impacto-da-ruptura-de-estoque-no-varejo-e-atacado" id="toc-introdução-o-impacto-da-ruptura-de-estoque-no-varejo-e-atacado" class="nav-link active" data-scroll-target="#introdução-o-impacto-da-ruptura-de-estoque-no-varejo-e-atacado">1. Introdução: O Impacto da Ruptura de Estoque no Varejo e Atacado</a></li>
+  <li><a href="#analisando-dados-históricos-de-vendas-com-python" id="toc-analisando-dados-históricos-de-vendas-com-python" class="nav-link" data-scroll-target="#analisando-dados-históricos-de-vendas-com-python">2. Analisando Dados Históricos de Vendas com Python</a>
   <ul class="collapse">
-  <li><a href="#o-que-são-regras-de-associação" id="toc-o-que-são-regras-de-associação" class="nav-link" data-scroll-target="#o-que-são-regras-de-associação">O que são Regras de Associação?</a></li>
-  <li><a href="#o-algoritmo-apriori" id="toc-o-algoritmo-apriori" class="nav-link" data-scroll-target="#o-algoritmo-apriori">O Algoritmo Apriori</a></li>
+  <li><a href="#a-importância-dos-dados-históricos" id="toc-a-importância-dos-dados-históricos" class="nav-link" data-scroll-target="#a-importância-dos-dados-históricos">A Importância dos Dados Históricos</a></li>
+  <li><a href="#bibliotecas-python-para-análise-de-dados" id="toc-bibliotecas-python-para-análise-de-dados" class="nav-link" data-scroll-target="#bibliotecas-python-para-análise-de-dados">Bibliotecas Python para Análise de Dados</a></li>
+  <li><a href="#exemplo-de-código" id="toc-exemplo-de-código" class="nav-link" data-scroll-target="#exemplo-de-código">Exemplo de Código</a></li>
   </ul></li>
-  <li><a href="#encontrando-insights-e-oportunidades-de-negócios" id="toc-encontrando-insights-e-oportunidades-de-negócios" class="nav-link" data-scroll-target="#encontrando-insights-e-oportunidades-de-negócios">3. Encontrando Insights e Oportunidades de Negócios</a>
+  <li><a href="#modelos-preditivos-para-antecipar-a-demanda" id="toc-modelos-preditivos-para-antecipar-a-demanda" class="nav-link" data-scroll-target="#modelos-preditivos-para-antecipar-a-demanda">3. Modelos Preditivos para Antecipar a Demanda</a>
   <ul class="collapse">
-  <li><a href="#exemplos-de-aplicações-práticas" id="toc-exemplos-de-aplicações-práticas" class="nav-link" data-scroll-target="#exemplos-de-aplicações-práticas">Exemplos de Aplicações Práticas</a></li>
+  <li><a href="#a-necessidade-de-previsão" id="toc-a-necessidade-de-previsão" class="nav-link" data-scroll-target="#a-necessidade-de-previsão">A Necessidade de Previsão</a></li>
+  <li><a href="#aprendizado-de-máquina-com-scikit-learn" id="toc-aprendizado-de-máquina-com-scikit-learn" class="nav-link" data-scroll-target="#aprendizado-de-máquina-com-scikit-learn">Aprendizado de Máquina com Scikit-learn</a></li>
+  <li><a href="#exemplo-de-código-1" id="toc-exemplo-de-código-1" class="nav-link" data-scroll-target="#exemplo-de-código-1">Exemplo de Código</a></li>
   </ul></li>
-  <li><a href="#visualização-de-dados-para-melhor-compreensão" id="toc-visualização-de-dados-para-melhor-compreensão" class="nav-link" data-scroll-target="#visualização-de-dados-para-melhor-compreensão">4. Visualização de Dados para Melhor Compreensão</a>
+  <li><a href="#implementação-de-um-sistema-de-alerta-de-ruptura-de-estoque" id="toc-implementação-de-um-sistema-de-alerta-de-ruptura-de-estoque" class="nav-link" data-scroll-target="#implementação-de-um-sistema-de-alerta-de-ruptura-de-estoque">4. Implementação de um Sistema de Alerta de Ruptura de Estoque</a>
   <ul class="collapse">
-  <li><a href="#usando-bibliotecas-python-para-visualização" id="toc-usando-bibliotecas-python-para-visualização" class="nav-link" data-scroll-target="#usando-bibliotecas-python-para-visualização">Usando Bibliotecas Python para Visualização</a></li>
+  <li><a href="#o-valor-dos-alertas-proativos" id="toc-o-valor-dos-alertas-proativos" class="nav-link" data-scroll-target="#o-valor-dos-alertas-proativos">O Valor dos Alertas Proativos</a></li>
+  <li><a href="#enviando-alertas-com-smtplib" id="toc-enviando-alertas-com-smtplib" class="nav-link" data-scroll-target="#enviando-alertas-com-smtplib">Enviando Alertas com Smtplib</a></li>
+  <li><a href="#exemplo-de-código-2" id="toc-exemplo-de-código-2" class="nav-link" data-scroll-target="#exemplo-de-código-2">Exemplo de Código</a></li>
   </ul></li>
   <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão">5. Conclusão</a>
   <ul class="collapse">
   <li><a href="#referências" id="toc-referências" class="nav-link" data-scroll-target="#referências">Referências</a></li>
-  <li><a href="#como-citar-este-artigo" id="toc-como-citar-este-artigo" class="nav-link" data-scroll-target="#como-citar-este-artigo">Como citar este artigo</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -253,145 +251,134 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><img src="image.jpg" class="img-fluid"></p>
-<section id="introdução-decodificando-o-comportamento-do-consumidor" class="level2">
-<h2 class="anchored" data-anchor-id="introdução-decodificando-o-comportamento-do-consumidor">1. Introdução: Decodificando o Comportamento do Consumidor</h2>
-<p>A <strong>análise de cesta de compras</strong> é uma técnica poderosa utilizada por varejistas para entender as preferências dos consumidores. Esta abordagem permite que as empresas decifrem o comportamento do cliente e revelem padrões de consumo que podem ser cruciais para o sucesso no competitivo mundo do varejo. Como afirma <strong>Groceryshop (2020)</strong><sup><a href="#ref1">1</a></sup> , “conhecer o que os clientes compram em conjunto é essencial para maximizar a receita e aprimorar a experiência de compra”. Compreender o que os consumidores estão comprando em conjunto possibilita aos varejistas otimizar o sortimento de produtos, ajustar estratégias de precificação e criar promoções mais eficazes. A análise de cesta de compras não apenas ajuda a aumentar as vendas, mas também melhora a fidelização do cliente, já que oferece uma experiência de compra mais personalizada e alinhada com as suas necessidades.</p>
-<p>Assim, a análise de cesta de compras se torna uma ferramenta indispensável para qualquer varejista que deseja se destacar em um mercado cada vez mais exigente.</p>
-<hr>
+<section id="introdução-o-impacto-da-ruptura-de-estoque-no-varejo-e-atacado" class="level2">
+<h2 class="anchored" data-anchor-id="introdução-o-impacto-da-ruptura-de-estoque-no-varejo-e-atacado">1. Introdução: O Impacto da Ruptura de Estoque no Varejo e Atacado</h2>
+<p>O gerenciamento de estoque é uma das atividades mais críticas no setor de varejo e atacado, onde cada decisão pode impactar diretamente as finanças da empresa e a satisfação do cliente. A ruptura de estoque, que ocorre quando um produto não está disponível para venda, não apenas prejudica as vendas, mas também pode <strong>manchar a reputação da marca</strong> . Como afirmam <strong>Heskett et al.&nbsp;(1994)</strong> , “a qualidade do serviço é definida pela capacidade de uma organização de atender às expectativas dos clientes”. Em um mercado competitivo, a confiança do consumidor é essencial, e uma experiência negativa pode levar à perda de clientes para concorrentes que oferecem melhor disponibilidade de produtos.Além disso, a gestão inadequada do estoque pode resultar em <strong>custos adicionais</strong> , como compras emergenciais e transporte acelerado, o que diminui as margens de lucro. Entender as causas da ruptura de estoque e desenvolver estratégias eficazes para evitá-la é fundamental para garantir a continuidade das vendas e a satisfação do cliente. A boa notícia é que a ciência de dados, por meio de técnicas de análise preditiva, pode ser um aliado poderoso na luta contra esse desafio. Com o uso de ferramentas e bibliotecas de Python, é possível prever tendências de consumo e ajustar o planejamento de estoque, assegurando que os produtos estejam sempre disponíveis para os clientes. 🛒 Neste artigo, vamos explorar como a análise de dados históricos de vendas, modelos preditivos e sistemas de alerta podem ser implementados para evitar a ruptura de estoque, permitindo que sua rede varejista ou atacadista opere de forma mais eficiente.</p>
 </section>
-<section id="regras-de-associação-e-o-algoritmo-apriori" class="level2">
-<h2 class="anchored" data-anchor-id="regras-de-associação-e-o-algoritmo-apriori">2. Regras de Associação e o Algoritmo Apriori</h2>
-<section id="o-que-são-regras-de-associação" class="level3">
-<h3 class="anchored" data-anchor-id="o-que-são-regras-de-associação">O que são Regras de Associação?</h3>
-<p>As <strong>regras de associação</strong> são uma técnica utilizada na <strong>mineração de dados</strong> para descobrir relações entre produtos comprados em conjunto. Essas regras ajudam a identificar padrões de compra que podem não ser imediatamente evidentes apenas pela análise dos dados brutos. Por exemplo, um varejista pode descobrir que quando um cliente compra pão, ele frequentemente também compra manteiga, o que pode influenciar promoções e organização de produtos na loja.</p>
+<section id="analisando-dados-históricos-de-vendas-com-python" class="level2">
+<h2 class="anchored" data-anchor-id="analisando-dados-históricos-de-vendas-com-python">2. Analisando Dados Históricos de Vendas com Python</h2>
+<section id="a-importância-dos-dados-históricos" class="level3">
+<h3 class="anchored" data-anchor-id="a-importância-dos-dados-históricos">A Importância dos Dados Históricos</h3>
+<p>Os dados históricos de vendas são fundamentais para compreender os padrões de compra dos consumidores e identificar tendências que podem impactar a disponibilidade de produtos. Ao analisar esses dados, os varejistas podem discernir quais produtos têm maior demanda em períodos específicos e, assim, ajustar suas compras e planejamento de estoque de acordo. Como bem colocou <strong>Davenport (2013)</strong> , “a análise de dados permite que as empresas façam previsões mais precisas e informem suas decisões”.Por exemplo, durante as festividades de fim de ano, a demanda por produtos sazonais, como panetones e bebidas alcoólicas, tende a aumentar, enquanto outros produtos podem ter uma queda na demanda. A capacidade de antecipar essas flutuações pode ser a chave para manter as prateleiras sempre abastecidas. <strong>Uma análise detalhada</strong> dos dados pode revelar produtos que frequentemente apresentam ruptura de estoque, permitindo que os gerentes de estoque priorizem sua aquisição e planejamento. Além disso, compreender os padrões de comportamento do consumidor que podem não ser imediatamente evidentes pode ajudar os varejistas a tomar decisões mais informadas sobre quais produtos manter em estoque e em quais quantidades. Evitar a ruptura de estoque não é apenas uma questão de disponibilidade, mas também de compreender as expectativas dos clientes e garantir que suas necessidades sejam atendidas.</p>
 </section>
-<section id="o-algoritmo-apriori" class="level3">
-<h3 class="anchored" data-anchor-id="o-algoritmo-apriori">O Algoritmo Apriori</h3>
-<p>O <strong>algoritmo Apriori</strong> é uma das ferramentas mais populares para encontrar padrões frequentes em grandes conjuntos de dados de transações. Ele utiliza um método iterativo para identificar combinações de itens que aparecem com frequência em cestas de compras. O algoritmo é baseado no princípio de que se um item é comum em uma cesta de compras, então todos os subconjuntos de itens associados também devem ser frequentes.</p>
-<section id="implementação-do-algoritmo-apriori-em-python" class="level4">
-<h4 class="anchored" data-anchor-id="implementação-do-algoritmo-apriori-em-python">Implementação do Algoritmo Apriori em Python</h4>
-<p>Para implementar o algoritmo Apriori em Python, utilizamos a biblioteca <strong>Mlxtend</strong> <sup><a href="#ref4">4</a></sup> . Veja um exemplo prático:</p>
-<div id="f74a78b3" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mlxtend.frequent_patterns <span class="im">import</span> apriori, association_rules</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemplo de estrutura de transações (cada linha representando uma transação)</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>dados <span class="op">=</span> {<span class="st">'Leite'</span>: [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>],</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>         <span class="st">'Café'</span>: [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>         <span class="st">'Pão'</span>: [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>],</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>         <span class="st">'Queijo'</span>: [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>]}</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar DataFrame</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(dados)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Gerar itemsets frequentes</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>frequent_itemsets <span class="op">=</span> apriori(df, min_support<span class="op">=</span><span class="fl">0.2</span>, use_colnames<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Gerar regras de associação</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>regras <span class="op">=</span> association_rules(frequent_itemsets, metric<span class="op">=</span><span class="st">"lift"</span>, min_threshold<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Exibir regras</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(regras)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>       antecedents      consequents  antecedent support  consequent support  \
-0           (Café)          (Leite)                 0.6                 0.6   
-1          (Leite)           (Café)                 0.6                 0.6   
-2            (Pão)          (Leite)                 0.6                 0.6   
-3          (Leite)            (Pão)                 0.6                 0.6   
-4         (Queijo)            (Pão)                 0.6                 0.6   
-5            (Pão)         (Queijo)                 0.6                 0.6   
-6      (Pão, Café)          (Leite)                 0.2                 0.6   
-7          (Leite)      (Pão, Café)                 0.6                 0.2   
-8  (Queijo, Leite)            (Pão)                 0.2                 0.6   
-9            (Pão)  (Queijo, Leite)                 0.6                 0.2   
-
-   support  confidence      lift  leverage  conviction  zhangs_metric  
-0      0.4    0.666667  1.111111      0.04         1.2           0.25  
-1      0.4    0.666667  1.111111      0.04         1.2           0.25  
-2      0.4    0.666667  1.111111      0.04         1.2           0.25  
-3      0.4    0.666667  1.111111      0.04         1.2           0.25  
-4      0.4    0.666667  1.111111      0.04         1.2           0.25  
-5      0.4    0.666667  1.111111      0.04         1.2           0.25  
-6      0.2    1.000000  1.666667      0.08         inf           0.50  
-7      0.2    0.333333  1.666667      0.08         1.2           1.00  
-8      0.2    1.000000  1.666667      0.08         inf           0.50  
-9      0.2    0.333333  1.666667      0.08         1.2           1.00  </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/home/janderscience/Projeto/site/Datacado/env/lib/python3.12/site-packages/mlxtend/frequent_patterns/fpcommon.py:109: DeprecationWarning:
-
-DataFrames with non-bool types result in worse computationalperformance and their support might be discontinued in the future.Please use a DataFrame with bool type
-</code></pre>
-</div>
-</div>
-<p>Neste código, transformamos os dados de transações em um formato adequado para análise, aplicamos o algoritmo Apriori para encontrar conjuntos frequentes e extraímos regras de associação baseadas em uma métrica de elevação (lift).</p>
-<hr>
-</section>
-</section>
-</section>
-<section id="encontrando-insights-e-oportunidades-de-negócios" class="level2">
-<h2 class="anchored" data-anchor-id="encontrando-insights-e-oportunidades-de-negócios">3. Encontrando Insights e Oportunidades de Negócios</h2>
-<p>Após aplicar o algoritmo Apriori, a próxima etapa é analisar os resultados para identificar produtos frequentemente comprados juntos. Os insights obtidos podem ser extremamente valiosos para os varejistas. Por exemplo, ao descobrir que fraldas e cerveja são frequentemente compradas juntas, os varejistas podem criar <strong>promoções cruzadas</strong> para estimular as vendas. Além disso, esses insights podem ser usados para <strong>otimizar o layout da loja</strong> , posicionando produtos que se complementam próximos uns dos outros, facilitando a compra pelo cliente.</p>
-<section id="exemplos-de-aplicações-práticas" class="level3">
-<h3 class="anchored" data-anchor-id="exemplos-de-aplicações-práticas">Exemplos de Aplicações Práticas</h3>
+<section id="bibliotecas-python-para-análise-de-dados" class="level3">
+<h3 class="anchored" data-anchor-id="bibliotecas-python-para-análise-de-dados">Bibliotecas Python para Análise de Dados</h3>
+<p>Para realizar essa análise, utilizamos bibliotecas populares em Python, como <strong>Pandas</strong> e <strong>NumPy</strong> . O Pandas, em particular, é uma ferramenta poderosa para manipulação de dados e permite o carregamento de grandes conjuntos de dados de forma eficiente. Com a utilização do Pandas, é possível limpar, transformar e analisar dados de vendas de maneira intuitiva e eficaz, permitindo que os profissionais do varejo obtenham insights valiosos sobre seus produtos e o comportamento dos consumidores.</p>
 <ul>
-<li><p><strong>Promoções Cruzadas</strong> : Compre um pacote de fraldas e leve um desconto na compra de cerveja.</p></li>
-<li><p><strong>Otimização do Layout</strong> : Posicionar fraldas e produtos de higiene ao lado de itens para festas e bebidas, aumentando a probabilidade de compras impulsivas.</p></li>
+<li><strong>Documentação do Pandas</strong> : <a href="">Pandas Documentation</a></li>
 </ul>
-<hr>
+</section>
+<section id="exemplo-de-código" class="level3">
+<h3 class="anchored" data-anchor-id="exemplo-de-código">Exemplo de Código</h3>
+<p>Aqui está um exemplo de como usar o Pandas para carregar e analisar dados de vendas:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Carregar os dados de vendas</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>vendas <span class="op">=</span> pd.read_csv(<span class="st">'vendas.csv'</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizar os primeiros registros</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(vendas.head())</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Agrupar as vendas por produto e mês</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>vendas_mensais <span class="op">=</span> vendas.groupby([<span class="st">'produto'</span>, <span class="st">'mes'</span>]).<span class="bu">sum</span>()[<span class="st">'quantidade'</span>].reset_index()</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular a média de vendas mensais para cada produto</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>media_vendas <span class="op">=</span> vendas_mensais.groupby(<span class="st">'produto'</span>)[<span class="st">'quantidade'</span>].mean().reset_index()</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(media_vendas)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Neste exemplo, a análise de dados históricos nos permite calcular a média de vendas mensais para cada produto. Esses insights são cruciais para <strong>identificar quais produtos estão em risco de ruptura</strong> e quais meses exigem maior atenção no planejamento de estoque. Com uma abordagem baseada em dados, os gerentes de estoque podem tomar decisões proativas e evitar a situação de ficar sem produtos nos momentos críticos. 📊</p>
 </section>
 </section>
-<section id="visualização-de-dados-para-melhor-compreensão" class="level2">
-<h2 class="anchored" data-anchor-id="visualização-de-dados-para-melhor-compreensão">4. Visualização de Dados para Melhor Compreensão</h2>
-<p>A visualização de dados desempenha um papel crucial na interpretação dos resultados da análise de cesta de compras. Ferramentas de visualização ajudam os varejistas a entender melhor as relações entre produtos e a comunicar esses insights de forma clara e intuitiva.</p>
-<section id="usando-bibliotecas-python-para-visualização" class="level3">
-<h3 class="anchored" data-anchor-id="usando-bibliotecas-python-para-visualização">Usando Bibliotecas Python para Visualização</h3>
-<p>Bibliotecas como <strong>NetworkX</strong> e <strong>Plotly</strong> permitem criar representações visuais dos dados de associação, tornando os padrões de consumo mais evidentes. Saiba mais sobre o <strong>NetworkX</strong> <a href="https://jandersolutions.github.io/jandersolutions/posts/Visualizando%20Redes%20Complexas%20com%20NetworkX/">aqui</a></p>
-<section id="exemplo-de-visualização-com-networkx" class="level4">
-<h4 class="anchored" data-anchor-id="exemplo-de-visualização-com-networkx">Exemplo de Visualização com NetworkX</h4>
-<div id="c33ac5a9" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar um gráfico de rede</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.from_pandas_edgelist(regras, source<span class="op">=</span><span class="st">'antecedents'</span>, target<span class="op">=</span><span class="st">'consequents'</span>, edge_attr<span class="op">=</span><span class="st">'lift'</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Desenhar o gráfico</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>))</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>nx.draw(G, with_labels<span class="op">=</span><span class="va">True</span>, node_size<span class="op">=</span><span class="dv">3000</span>, node_color<span class="op">=</span><span class="st">'skyblue'</span>, font_size<span class="op">=</span><span class="dv">15</span>, font_weight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Gráfico de Rede das Regras de Associação'</span>)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-3-output-1.png" width="979" height="1000" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Neste exemplo, usamos o <strong>NetworkX</strong> para visualizar as regras de associação, onde cada nó representa um produto e as arestas representam a relação entre eles, ponderada pela métrica de lift. Essa visualização ajuda a identificar rapidamente quais produtos estão mais interconectados e podem ser alvo de estratégias de marketing.</p>
-<hr>
+<section id="modelos-preditivos-para-antecipar-a-demanda" class="level2">
+<h2 class="anchored" data-anchor-id="modelos-preditivos-para-antecipar-a-demanda">3. Modelos Preditivos para Antecipar a Demanda</h2>
+<section id="a-necessidade-de-previsão" class="level3">
+<h3 class="anchored" data-anchor-id="a-necessidade-de-previsão">A Necessidade de Previsão</h3>
+<p>A previsão de demanda é uma das etapas mais críticas para evitar a ruptura de estoque. A capacidade de antecipar a demanda com precisão é fundamental para que os varejistas mantenham os níveis de estoque adequados e evitem a frustração do cliente. Utilizando <strong>modelos preditivos</strong> , os varejistas podem estimar a quantidade de produtos necessária para atender à demanda futura com base em dados históricos. Essa abordagem é corroborada por <strong>Chopra e Meindl (2016)</strong> , que afirmam que “a previsão precisa da demanda é um componente essencial para a gestão eficiente da cadeia de suprimentos”.Entre as técnicas mais utilizadas estão a <strong>regressão linear</strong> e as <strong>séries temporais</strong> . A regressão linear é uma técnica estatística que pode ser usada para modelar a relação entre a demanda e várias variáveis preditivas, como preço e promoções. As séries temporais, por outro lado, são especialmente úteis para dados que variam ao longo do tempo, permitindo que os varejistas analisem padrões sazonais e prevejam futuras demandas com base em dados passados.</p>
 </section>
+<section id="aprendizado-de-máquina-com-scikit-learn" class="level3">
+<h3 class="anchored" data-anchor-id="aprendizado-de-máquina-com-scikit-learn">Aprendizado de Máquina com Scikit-learn</h3>
+<p>A biblioteca <strong>Scikit-learn</strong> é amplamente utilizada para desenvolver e implementar modelos de aprendizado de máquina em Python. Com ela, é possível treinar modelos preditivos que ajudam a antecipar a demanda e a ajustar os níveis de estoque adequadamente. Essa biblioteca fornece uma vasta gama de algoritmos de aprendizado de máquina e ferramentas para pré-processamento de dados, o que facilita a criação de modelos robustos e eficazes.</p>
+<ul>
+<li><strong>Documentação do Scikit-learn</strong> : <a href="">Scikit-learn Documentation</a></li>
+</ul>
+</section>
+<section id="exemplo-de-código-1" class="level3">
+<h3 class="anchored" data-anchor-id="exemplo-de-código-1">Exemplo de Código</h3>
+<p>Aqui está um exemplo de como treinar um modelo de regressão linear para prever vendas:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Dividir os dados em conjuntos de treinamento e teste</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> vendas_mensais[[<span class="st">'mes'</span>]]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> vendas_mensais[<span class="st">'quantidade'</span>]</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar o modelo de regressão linear</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>modelo <span class="op">=</span> LinearRegression()</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>modelo.fit(X_train, y_train)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Fazer previsões</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>previsoes <span class="op">=</span> modelo.predict(X_test)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Avaliar o modelo</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>erro_mse <span class="op">=</span> mean_squared_error(y_test, previsoes)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Erro médio quadrático: </span><span class="sc">{</span>erro_mse<span class="sc">:.2f}</span><span class="ss">'</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Neste código, o modelo de regressão linear é treinado para prever as vendas mensais com base nos dados históricos. A avaliação do modelo, utilizando o erro médio quadrático, é fundamental para entender a precisão das previsões e ajustar a estratégia de estoque. A validação do modelo permite que os gerentes de estoque tenham confiança nas previsões e possam agir de maneira proativa, evitando rupturas indesejadas. 🧠</p>
+</section>
+</section>
+<section id="implementação-de-um-sistema-de-alerta-de-ruptura-de-estoque" class="level2">
+<h2 class="anchored" data-anchor-id="implementação-de-um-sistema-de-alerta-de-ruptura-de-estoque">4. Implementação de um Sistema de Alerta de Ruptura de Estoque</h2>
+<section id="o-valor-dos-alertas-proativos" class="level3">
+<h3 class="anchored" data-anchor-id="o-valor-dos-alertas-proativos">O Valor dos Alertas Proativos</h3>
+<p>A implementação de um sistema de alerta proativo é uma estratégia eficaz para evitar a ruptura de estoque. Com um sistema de alerta, os gerentes de estoque são notificados quando a demanda prevista atinge um limiar crítico, permitindo que eles tomem medidas corretivas antes que o problema ocorra. Isso não só melhora a eficiência operacional, mas também proporciona uma maior segurança aos gestores, pois eles estarão sempre informados sobre a situação de seus produtos.</p>
+<p>Além disso, um sistema de alerta pode ser configurado para enviar notificações em diferentes formatos, como e-mails ou mensagens de texto, dependendo da preferência da equipe de gerenciamento. Essa flexibilidade permite que os varejistas ajustem a configuração do sistema conforme suas necessidades, assegurando que as informações sejam recebidas de maneira rápida e eficiente.</p>
+</section>
+<section id="enviando-alertas-com-smtplib" class="level3">
+<h3 class="anchored" data-anchor-id="enviando-alertas-com-smtplib">Enviando Alertas com Smtplib</h3>
+<p>A biblioteca <strong>smtplib</strong> em Python facilita o envio de e-mails automaticamente sempre que um alerta é gerado. Isso garante que a equipe de estoque esteja sempre atualizada sobre a situação dos produtos. A configuração de um sistema de alerta eficaz é crucial para garantir que as rupturas de estoque sejam evitadas antes que se tornem um problema significativo.</p>
+<ul>
+<li><strong>Documentação do Smtplib</strong> : <a href="https://docs.python.org/3/library/smtplib.html">Smtplib Documentation</a></li>
+</ul>
+</section>
+<section id="exemplo-de-código-2" class="level3">
+<h3 class="anchored" data-anchor-id="exemplo-de-código-2">Exemplo de Código</h3>
+<p>Aqui está um exemplo de como configurar um sistema de alerta:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> smtplib</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> email.mime.text <span class="im">import</span> MIMEText</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> enviar_alerta(produto):</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Configuração do servidor SMTP</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    servidor <span class="op">=</span> smtplib.SMTP(<span class="st">'smtp.example.com'</span>, <span class="dv">587</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    servidor.starttls()</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    servidor.login(<span class="st">'seu_email@example.com'</span>, <span class="st">'sua_senha'</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Criar a mensagem</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    mensagem <span class="op">=</span> MIMEText(<span class="ss">f'Alerta: O produto </span><span class="sc">{</span>produto<span class="sc">}</span><span class="ss"> atingiu o limite crítico de estoque.'</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    mensagem[<span class="st">'Subject'</span>] <span class="op">=</span> <span class="st">'Alerta de Ruptura de Estoque'</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    mensagem[<span class="st">'From'</span>] <span class="op">=</span> <span class="st">'seu_email@example.com'</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    mensagem[<span class="st">'To'</span>] <span class="op">=</span> <span class="st">'destinatario@example.com'</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Enviar a mensagem</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    servidor.send_message(mensagem)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    servidor.quit()</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Chamar a função quando a previsão atingir o limiar crítico</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>enviar_alerta(<span class="st">'Produto X'</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Neste exemplo, a função <code>enviar_alerta</code> é chamada sempre que um produto atinge o limite crítico de estoque. Essa abordagem proativa não só minimiza a ocorrência de rupturas, mas também permite que a equipe de gestão tome decisões informadas sobre a reposição de produtos antes que a situação se agrave. A eficácia desse sistema é amplamente reconhecida na literatura, com <strong>Harrison et al.&nbsp;(2005)</strong> afirmando que “a antecipação é a chave para uma gestão eficiente da cadeia de suprimentos”. 📧</p>
 </section>
 </section>
 <section id="conclusão" class="level2">
 <h2 class="anchored" data-anchor-id="conclusão">5. Conclusão</h2>
-<p>A <strong>análise de cesta de compras</strong> é uma ferramenta poderosa para entender o comportamento do consumidor e otimizar as operações de varejo. Ao aplicar técnicas de regras de associação, como o algoritmo Apriori, os varejistas podem identificar padrões de compra e encontrar novas oportunidades de negócios. Os insights obtidos a partir dessa análise não só ajudam a melhorar as estratégias de marketing, mas também contribuem para uma melhor experiência do cliente, uma vez que promovem uma personalização que pode aumentar a fidelidade do consumidor. Conforme mencionado por <strong>Wang et al.&nbsp;(2018)</strong> <sup><a href="#ref2">2</a></sup> , “a capacidade de interpretar dados de transações pode transformar a maneira como as empresas se conectam com seus clientes”. Portanto, investir na análise de cesta de compras deve ser uma prioridade para os varejistas que buscam não apenas aumentar as vendas, mas também construir relacionamentos mais fortes com seus clientes.</p>
-<hr>
+<p>Em resumo, a ruptura de estoque é um desafio significativo que pode impactar diretamente o desempenho financeiro e a satisfação do cliente em empresas de varejo e atacado. No entanto, as ferramentas e técnicas disponíveis por meio da ciência de dados e aprendizado de máquina oferecem soluções práticas e eficazes. <strong>A análise de dados históricos</strong> , os <strong>modelos preditivos</strong> e a <strong>implementação de sistemas de alerta</strong> são passos fundamentais para garantir que os produtos estejam sempre disponíveis para os consumidores.Ao investir em tecnologia e análises avançadas, os varejistas não apenas reduzem as perdas financeiras, mas também melhoram a experiência do cliente. Em um ambiente de mercado dinâmico e competitivo, essas práticas não são apenas recomendáveis; elas são essenciais. Como <strong>Morris (2020)</strong> destaca, “as empresas que utilizam ciência de dados para informar suas decisões estão um passo à frente na corrida competitiva”.Além disso, existem diversas outras técnicas avançadas de otimização de estoque que podem ser exploradas, como a <strong>gestão de inventário just-in-time</strong> , que se alinha perfeitamente com as necessidades dos consumidores, garantindo eficiência e redução de custos. Assim, ao adotar uma abordagem baseada em dados, os varejistas e atacadistas podem enfrentar os desafios do mercado de forma mais robusta, assegurando um crescimento sustentável e uma experiência superior para seus consumidores. 🚀</p>
 <section id="referências" class="level3">
 <h3 class="anchored" data-anchor-id="referências">Referências</h3>
 <ol type="1">
-<li><p><a id="ref1"></a>Groceryshop. (2020). <em>The Importance of Basket Analysis in Retail</em>. Disponível em <a href="https://www.groceryshop.com/">groceryshop.com</a> .</p></li>
-<li><p><a id="ref2"></a>Wang, Y., Gunasekaran, A., &amp; Ngai, E. W. T. (2018). <em>Big Data in Logistics and Supply Chain Management: Future Directions and the Role of the Researcher</em>. <em>International Journal of Production Economics</em>, 176, 98-110.</p></li>
-<li><p>imagens <em>pexels</em></p></li>
-<li><p><a id="ref4"></a> Mlxtend Documentation. Disponível em mlxtend.readthedocs.io.</p></li>
+<li><p>Davenport, T. H. (2013). <em>Analytics at Work: Smarter Decisions, Better Results</em>. Harvard Business Review Press.</p></li>
+<li><p>Chopra, S., &amp; Meindl, P. (2016). <em>Supply Chain Management: Strategy, Planning, and Operation</em>. Pearson.</p></li>
+<li><p>Harrison, A., Van Hoek, R., &amp; Christopher, M. (2005). <em>Creating the Future Supply Chain</em>. <em>The Supply Chain Management Review</em>.</p></li>
+<li><p>Heskett, J. L., Sasser, W. E., &amp; Schlesinger, L. A. (1994). <em>The Service Strategy: The Key to Competitive Advantage</em>. <em>Harvard Business Review</em>.</p></li>
+<li><p>Morris, M. (2020). <em>Data-Driven Decisions: The Competitive Advantage in the Age of Data</em>. <em>McKinsey Quarterly</em>.</p></li>
 </ol>
-<hr>
-</section>
-<section id="como-citar-este-artigo" class="level3">
-<h3 class="anchored" data-anchor-id="como-citar-este-artigo">Como citar este artigo</h3>
-<p>Se você deseja citar este artigo, pode usar o BibTeX abaixo:</p>
-<p><span class="citation" data-cites="article">@article</span>{abreu2024otimizando, title={Otimizando a Gestão de Preços no Varejo com Python}, author={Abreu, Janderson Batista}, year={2024}, url={https://jandersolutions.github.io/jandersolutions/posts/Otimizando%20a%20Gest%C3%A3o%20de%20Pre%C3%A7os%20no%20Varejo%20com%20Python/}, note={Acesso em: 24 out. 2024}, institution={Anhanguera Educacional}, keywords={ciência de dados, otimização de preços, varejo, Python} }</p>
 
 
 </section>
@@ -962,6 +949,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<script src="https://giscus.app/client.js" data-repo="Jandersolutions/jandersolutions" data-repo-id="R_kgDOIrGiqg" data-category="General" data-category-id="DIC_kwDOIrGiqs4CjppG" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="pt-br" crossorigin="anonymous" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="preferred_color_scheme">
+<input type="hidden" id="giscus-alt-theme" value="preferred_color_scheme">
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

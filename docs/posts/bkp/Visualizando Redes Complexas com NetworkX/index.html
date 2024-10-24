@@ -7,9 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Janderson B Abreu">
-<meta name="description" content="Este artigo explora a análise de cesta de compras usando o algoritmo Apriori com Python. Entenda como identificar padrões de consumo, otimizar vendas no varejo e implementar estratégias de marketing eficientes com base em dados reais.">
 
-<title>Análise de Cesta de Compras: Revelando Padrões de Consumo com Python</title>
+<title>Visualizando Redes Complexas com NetworkX</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,61 +21,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -106,7 +71,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../../../styles.css">
 </head>
 
 <body class="floating nav-fixed">
@@ -116,8 +81,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../src/img/logotipo.png" alt="Logotipo do Datacado" class="navbar-logo">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../src/img/logotipo.png" alt="Logotipo do Datacado" class="navbar-logo">
     </a>
   </div>
             <div id="quarto-search" class="" title="Procurar"></div>
@@ -127,7 +92,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
+    <a class="nav-link" href="../../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -177,16 +142,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Análise de Cesta de Compras: Revelando Padrões de Consumo com Python</h1>
-                  <div>
-        <div class="description">
-          Descubra como a análise de cesta de compras com Python pode revelar padrões de consumo e otimizar as operações no varejo. Aprenda a usar o algoritmo Apriori para identificar produtos frequentemente comprados juntos e aumentar as vendas através de promoções eficazes.
-        </div>
-      </div>
-                          <div class="quarto-categories">
-                <div class="quarto-category">Análise de Dados</div>
-                <div class="quarto-category">Análise de Vendas</div>
+      <h1 class="title">Visualizando Redes Complexas com NetworkX</h1>
+                                <div class="quarto-categories">
                 <div class="quarto-category">Varejo e Atacado</div>
+                <div class="quarto-category">Ciência de Dados</div>
+                <div class="quarto-category">Inteligência Artificial</div>
               </div>
                   </div>
   </div>
@@ -204,7 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Data de Publicação</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">22 de outubro de 2024</p>
+        <p class="date">24 de outubro de 2024</p>
       </div>
     </div>
     
@@ -219,25 +179,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Nesta página</h2>
    
   <ul>
-  <li><a href="#introdução-decodificando-o-comportamento-do-consumidor" id="toc-introdução-decodificando-o-comportamento-do-consumidor" class="nav-link active" data-scroll-target="#introdução-decodificando-o-comportamento-do-consumidor">1. Introdução: Decodificando o Comportamento do Consumidor</a></li>
-  <li><a href="#regras-de-associação-e-o-algoritmo-apriori" id="toc-regras-de-associação-e-o-algoritmo-apriori" class="nav-link" data-scroll-target="#regras-de-associação-e-o-algoritmo-apriori">2. Regras de Associação e o Algoritmo Apriori</a>
-  <ul class="collapse">
-  <li><a href="#o-que-são-regras-de-associação" id="toc-o-que-são-regras-de-associação" class="nav-link" data-scroll-target="#o-que-são-regras-de-associação">O que são Regras de Associação?</a></li>
-  <li><a href="#o-algoritmo-apriori" id="toc-o-algoritmo-apriori" class="nav-link" data-scroll-target="#o-algoritmo-apriori">O Algoritmo Apriori</a></li>
-  </ul></li>
-  <li><a href="#encontrando-insights-e-oportunidades-de-negócios" id="toc-encontrando-insights-e-oportunidades-de-negócios" class="nav-link" data-scroll-target="#encontrando-insights-e-oportunidades-de-negócios">3. Encontrando Insights e Oportunidades de Negócios</a>
-  <ul class="collapse">
-  <li><a href="#exemplos-de-aplicações-práticas" id="toc-exemplos-de-aplicações-práticas" class="nav-link" data-scroll-target="#exemplos-de-aplicações-práticas">Exemplos de Aplicações Práticas</a></li>
-  </ul></li>
-  <li><a href="#visualização-de-dados-para-melhor-compreensão" id="toc-visualização-de-dados-para-melhor-compreensão" class="nav-link" data-scroll-target="#visualização-de-dados-para-melhor-compreensão">4. Visualização de Dados para Melhor Compreensão</a>
-  <ul class="collapse">
-  <li><a href="#usando-bibliotecas-python-para-visualização" id="toc-usando-bibliotecas-python-para-visualização" class="nav-link" data-scroll-target="#usando-bibliotecas-python-para-visualização">Usando Bibliotecas Python para Visualização</a></li>
-  </ul></li>
-  <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão">5. Conclusão</a>
-  <ul class="collapse">
-  <li><a href="#referências" id="toc-referências" class="nav-link" data-scroll-target="#referências">Referências</a></li>
-  <li><a href="#como-citar-este-artigo" id="toc-como-citar-este-artigo" class="nav-link" data-scroll-target="#como-citar-este-artigo">Como citar este artigo</a></li>
-  </ul></li>
+  <li><a href="#criar-um-grafo-vazio" id="toc-criar-um-grafo-vazio" class="nav-link active" data-scroll-target="#criar-um-grafo-vazio">Criar um grafo vazio</a></li>
+  <li><a href="#adicionar-nós" id="toc-adicionar-nós" class="nav-link" data-scroll-target="#adicionar-nós">Adicionar nós</a></li>
+  <li><a href="#adicionar-uma-aresta-entre-os-nós" id="toc-adicionar-uma-aresta-entre-os-nós" class="nav-link" data-scroll-target="#adicionar-uma-aresta-entre-os-nós">Adicionar uma aresta entre os nós</a></li>
+  <li><a href="#desenhar-o-grafo" id="toc-desenhar-o-grafo" class="nav-link" data-scroll-target="#desenhar-o-grafo">Desenhar o grafo</a></li>
+  <li><a href="#dados-simulados-de-regras-de-associação" id="toc-dados-simulados-de-regras-de-associação" class="nav-link" data-scroll-target="#dados-simulados-de-regras-de-associação">Dados simulados de regras de associação</a></li>
+  <li><a href="#criar-o-grafo" id="toc-criar-o-grafo" class="nav-link" data-scroll-target="#criar-o-grafo">Criar o grafo</a></li>
+  <li><a href="#desenhar-o-grafo-1" id="toc-desenhar-o-grafo-1" class="nav-link" data-scroll-target="#desenhar-o-grafo-1">Desenhar o grafo</a></li>
+  <li><a href="#desenhar-as-arestas-ponderadas-pelo-lift" id="toc-desenhar-as-arestas-ponderadas-pelo-lift" class="nav-link" data-scroll-target="#desenhar-as-arestas-ponderadas-pelo-lift">Desenhar as arestas ponderadas pelo lift</a></li>
   </ul>
 </nav>
 </nav>
@@ -253,148 +202,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><img src="image.jpg" class="img-fluid"></p>
-<section id="introdução-decodificando-o-comportamento-do-consumidor" class="level2">
-<h2 class="anchored" data-anchor-id="introdução-decodificando-o-comportamento-do-consumidor">1. Introdução: Decodificando o Comportamento do Consumidor</h2>
-<p>A <strong>análise de cesta de compras</strong> é uma técnica poderosa utilizada por varejistas para entender as preferências dos consumidores. Esta abordagem permite que as empresas decifrem o comportamento do cliente e revelem padrões de consumo que podem ser cruciais para o sucesso no competitivo mundo do varejo. Como afirma <strong>Groceryshop (2020)</strong><sup><a href="#ref1">1</a></sup> , “conhecer o que os clientes compram em conjunto é essencial para maximizar a receita e aprimorar a experiência de compra”. Compreender o que os consumidores estão comprando em conjunto possibilita aos varejistas otimizar o sortimento de produtos, ajustar estratégias de precificação e criar promoções mais eficazes. A análise de cesta de compras não apenas ajuda a aumentar as vendas, mas também melhora a fidelização do cliente, já que oferece uma experiência de compra mais personalizada e alinhada com as suas necessidades.</p>
-<p>Assim, a análise de cesta de compras se torna uma ferramenta indispensável para qualquer varejista que deseja se destacar em um mercado cada vez mais exigente.</p>
-<hr>
-</section>
-<section id="regras-de-associação-e-o-algoritmo-apriori" class="level2">
-<h2 class="anchored" data-anchor-id="regras-de-associação-e-o-algoritmo-apriori">2. Regras de Associação e o Algoritmo Apriori</h2>
-<section id="o-que-são-regras-de-associação" class="level3">
-<h3 class="anchored" data-anchor-id="o-que-são-regras-de-associação">O que são Regras de Associação?</h3>
-<p>As <strong>regras de associação</strong> são uma técnica utilizada na <strong>mineração de dados</strong> para descobrir relações entre produtos comprados em conjunto. Essas regras ajudam a identificar padrões de compra que podem não ser imediatamente evidentes apenas pela análise dos dados brutos. Por exemplo, um varejista pode descobrir que quando um cliente compra pão, ele frequentemente também compra manteiga, o que pode influenciar promoções e organização de produtos na loja.</p>
-</section>
-<section id="o-algoritmo-apriori" class="level3">
-<h3 class="anchored" data-anchor-id="o-algoritmo-apriori">O Algoritmo Apriori</h3>
-<p>O <strong>algoritmo Apriori</strong> é uma das ferramentas mais populares para encontrar padrões frequentes em grandes conjuntos de dados de transações. Ele utiliza um método iterativo para identificar combinações de itens que aparecem com frequência em cestas de compras. O algoritmo é baseado no princípio de que se um item é comum em uma cesta de compras, então todos os subconjuntos de itens associados também devem ser frequentes.</p>
-<section id="implementação-do-algoritmo-apriori-em-python" class="level4">
-<h4 class="anchored" data-anchor-id="implementação-do-algoritmo-apriori-em-python">Implementação do Algoritmo Apriori em Python</h4>
-<p>Para implementar o algoritmo Apriori em Python, utilizamos a biblioteca <strong>Mlxtend</strong> <sup><a href="#ref4">4</a></sup> . Veja um exemplo prático:</p>
-<div id="f74a78b3" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mlxtend.frequent_patterns <span class="im">import</span> apriori, association_rules</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemplo de estrutura de transações (cada linha representando uma transação)</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>dados <span class="op">=</span> {<span class="st">'Leite'</span>: [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>],</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>         <span class="st">'Café'</span>: [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>         <span class="st">'Pão'</span>: [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>],</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>         <span class="st">'Queijo'</span>: [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>]}</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar DataFrame</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(dados)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Gerar itemsets frequentes</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>frequent_itemsets <span class="op">=</span> apriori(df, min_support<span class="op">=</span><span class="fl">0.2</span>, use_colnames<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Gerar regras de associação</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>regras <span class="op">=</span> association_rules(frequent_itemsets, metric<span class="op">=</span><span class="st">"lift"</span>, min_threshold<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Exibir regras</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(regras)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>       antecedents      consequents  antecedent support  consequent support  \
-0           (Café)          (Leite)                 0.6                 0.6   
-1          (Leite)           (Café)                 0.6                 0.6   
-2            (Pão)          (Leite)                 0.6                 0.6   
-3          (Leite)            (Pão)                 0.6                 0.6   
-4         (Queijo)            (Pão)                 0.6                 0.6   
-5            (Pão)         (Queijo)                 0.6                 0.6   
-6      (Pão, Café)          (Leite)                 0.2                 0.6   
-7          (Leite)      (Pão, Café)                 0.6                 0.2   
-8  (Queijo, Leite)            (Pão)                 0.2                 0.6   
-9            (Pão)  (Queijo, Leite)                 0.6                 0.2   
-
-   support  confidence      lift  leverage  conviction  zhangs_metric  
-0      0.4    0.666667  1.111111      0.04         1.2           0.25  
-1      0.4    0.666667  1.111111      0.04         1.2           0.25  
-2      0.4    0.666667  1.111111      0.04         1.2           0.25  
-3      0.4    0.666667  1.111111      0.04         1.2           0.25  
-4      0.4    0.666667  1.111111      0.04         1.2           0.25  
-5      0.4    0.666667  1.111111      0.04         1.2           0.25  
-6      0.2    1.000000  1.666667      0.08         inf           0.50  
-7      0.2    0.333333  1.666667      0.08         1.2           1.00  
-8      0.2    1.000000  1.666667      0.08         inf           0.50  
-9      0.2    0.333333  1.666667      0.08         1.2           1.00  </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/home/janderscience/Projeto/site/Datacado/env/lib/python3.12/site-packages/mlxtend/frequent_patterns/fpcommon.py:109: DeprecationWarning:
-
-DataFrames with non-bool types result in worse computationalperformance and their support might be discontinued in the future.Please use a DataFrame with bool type
-</code></pre>
-</div>
-</div>
-<p>Neste código, transformamos os dados de transações em um formato adequado para análise, aplicamos o algoritmo Apriori para encontrar conjuntos frequentes e extraímos regras de associação baseadas em uma métrica de elevação (lift).</p>
-<hr>
-</section>
-</section>
-</section>
-<section id="encontrando-insights-e-oportunidades-de-negócios" class="level2">
-<h2 class="anchored" data-anchor-id="encontrando-insights-e-oportunidades-de-negócios">3. Encontrando Insights e Oportunidades de Negócios</h2>
-<p>Após aplicar o algoritmo Apriori, a próxima etapa é analisar os resultados para identificar produtos frequentemente comprados juntos. Os insights obtidos podem ser extremamente valiosos para os varejistas. Por exemplo, ao descobrir que fraldas e cerveja são frequentemente compradas juntas, os varejistas podem criar <strong>promoções cruzadas</strong> para estimular as vendas. Além disso, esses insights podem ser usados para <strong>otimizar o layout da loja</strong> , posicionando produtos que se complementam próximos uns dos outros, facilitando a compra pelo cliente.</p>
-<section id="exemplos-de-aplicações-práticas" class="level3">
-<h3 class="anchored" data-anchor-id="exemplos-de-aplicações-práticas">Exemplos de Aplicações Práticas</h3>
-<ul>
-<li><p><strong>Promoções Cruzadas</strong> : Compre um pacote de fraldas e leve um desconto na compra de cerveja.</p></li>
-<li><p><strong>Otimização do Layout</strong> : Posicionar fraldas e produtos de higiene ao lado de itens para festas e bebidas, aumentando a probabilidade de compras impulsivas.</p></li>
-</ul>
-<hr>
-</section>
-</section>
-<section id="visualização-de-dados-para-melhor-compreensão" class="level2">
-<h2 class="anchored" data-anchor-id="visualização-de-dados-para-melhor-compreensão">4. Visualização de Dados para Melhor Compreensão</h2>
-<p>A visualização de dados desempenha um papel crucial na interpretação dos resultados da análise de cesta de compras. Ferramentas de visualização ajudam os varejistas a entender melhor as relações entre produtos e a comunicar esses insights de forma clara e intuitiva.</p>
-<section id="usando-bibliotecas-python-para-visualização" class="level3">
-<h3 class="anchored" data-anchor-id="usando-bibliotecas-python-para-visualização">Usando Bibliotecas Python para Visualização</h3>
-<p>Bibliotecas como <strong>NetworkX</strong> e <strong>Plotly</strong> permitem criar representações visuais dos dados de associação, tornando os padrões de consumo mais evidentes. Saiba mais sobre o <strong>NetworkX</strong> <a href="https://jandersolutions.github.io/jandersolutions/posts/Visualizando%20Redes%20Complexas%20com%20NetworkX/">aqui</a></p>
-<section id="exemplo-de-visualização-com-networkx" class="level4">
-<h4 class="anchored" data-anchor-id="exemplo-de-visualização-com-networkx">Exemplo de Visualização com NetworkX</h4>
-<div id="c33ac5a9" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar um gráfico de rede</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.from_pandas_edgelist(regras, source<span class="op">=</span><span class="st">'antecedents'</span>, target<span class="op">=</span><span class="st">'consequents'</span>, edge_attr<span class="op">=</span><span class="st">'lift'</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Desenhar o gráfico</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>))</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>nx.draw(G, with_labels<span class="op">=</span><span class="va">True</span>, node_size<span class="op">=</span><span class="dv">3000</span>, node_color<span class="op">=</span><span class="st">'skyblue'</span>, font_size<span class="op">=</span><span class="dv">15</span>, font_weight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Gráfico de Rede das Regras de Associação'</span>)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-3-output-1.png" width="979" height="1000" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Neste exemplo, usamos o <strong>NetworkX</strong> para visualizar as regras de associação, onde cada nó representa um produto e as arestas representam a relação entre eles, ponderada pela métrica de lift. Essa visualização ajuda a identificar rapidamente quais produtos estão mais interconectados e podem ser alvo de estratégias de marketing.</p>
-<hr>
-</section>
-</section>
-</section>
-<section id="conclusão" class="level2">
-<h2 class="anchored" data-anchor-id="conclusão">5. Conclusão</h2>
-<p>A <strong>análise de cesta de compras</strong> é uma ferramenta poderosa para entender o comportamento do consumidor e otimizar as operações de varejo. Ao aplicar técnicas de regras de associação, como o algoritmo Apriori, os varejistas podem identificar padrões de compra e encontrar novas oportunidades de negócios. Os insights obtidos a partir dessa análise não só ajudam a melhorar as estratégias de marketing, mas também contribuem para uma melhor experiência do cliente, uma vez que promovem uma personalização que pode aumentar a fidelidade do consumidor. Conforme mencionado por <strong>Wang et al.&nbsp;(2018)</strong> <sup><a href="#ref2">2</a></sup> , “a capacidade de interpretar dados de transações pode transformar a maneira como as empresas se conectam com seus clientes”. Portanto, investir na análise de cesta de compras deve ser uma prioridade para os varejistas que buscam não apenas aumentar as vendas, mas também construir relacionamentos mais fortes com seus clientes.</p>
-<hr>
-<section id="referências" class="level3">
-<h3 class="anchored" data-anchor-id="referências">Referências</h3>
 <ol type="1">
-<li><p><a id="ref1"></a>Groceryshop. (2020). <em>The Importance of Basket Analysis in Retail</em>. Disponível em <a href="https://www.groceryshop.com/">groceryshop.com</a> .</p></li>
-<li><p><a id="ref2"></a>Wang, Y., Gunasekaran, A., &amp; Ngai, E. W. T. (2018). <em>Big Data in Logistics and Supply Chain Management: Future Directions and the Role of the Researcher</em>. <em>International Journal of Production Economics</em>, 176, 98-110.</p></li>
-<li><p>imagens <em>pexels</em></p></li>
-<li><p><a id="ref4"></a> Mlxtend Documentation. Disponível em mlxtend.readthedocs.io.</p></li>
+<li>Introdução: Visualizando Redes Complexas com NetworkX</li>
 </ol>
-<hr>
+<p>No mundo dos dados, compreender a interconexão entre diferentes elementos pode revelar insights valiosos. A visualização de redes é uma ferramenta essencial para identificar e entender as relações entre os nós de uma rede complexa. O NetworkX, uma biblioteca Python, é amplamente utilizada para essa finalidade, permitindo a criação, manipulação e estudo de redes complexas.</p>
+<p>Como afirma Newman (2018), “as redes são uma forma poderosa de modelar sistemas complexos, desde relações sociais até padrões de comércio”. O NetworkX facilita a construção dessas representações gráficas, proporcionando uma maneira visual de explorar e comunicar padrões ocultos nos dados. 2. O que é NetworkX?</p>
+<p>O NetworkX é uma biblioteca de Python voltada para a criação e manipulação de grafos ou redes complexas. Ele permite modelar relações entre entidades (representadas por nós) e suas conexões (arestas). Esse tipo de análise é particularmente útil em diversos domínios, como:</p>
+<pre><code>Análise de Redes Sociais: Visualizar conexões entre pessoas ou grupos.
+Padrões de Compras: Mostrar associações entre produtos em um mercado.
+Infraestruturas de Rede: Analisar redes de computadores ou sistemas de transporte.</code></pre>
+<p>Estrutura Básica de um Grafo</p>
+<p>Os componentes essenciais de um grafo são:</p>
+<pre><code>Nó (Node): Representa uma entidade, como um produto, pessoa ou cidade.
+Aresta (Edge): Representa a conexão ou relação entre dois nós.</code></pre>
+<p>Com o NetworkX, é possível construir redes dirigidas (onde as conexões têm direção) e não dirigidas, dependendo do tipo de relacionamento que se deseja modelar. 3. Criando um Grafo Simples com NetworkX Exemplo Básico de Implementação</p>
+<p>Aqui está um exemplo de como criar um grafo simples com dois nós e uma aresta usando NetworkX:</p>
+<p>python</p>
+<p>import networkx as nx import matplotlib.pyplot as plt</p>
+<section id="criar-um-grafo-vazio" class="level1">
+<h1>Criar um grafo vazio</h1>
+<p>G = nx.Graph()</p>
 </section>
-<section id="como-citar-este-artigo" class="level3">
-<h3 class="anchored" data-anchor-id="como-citar-este-artigo">Como citar este artigo</h3>
-<p>Se você deseja citar este artigo, pode usar o BibTeX abaixo:</p>
-<p><span class="citation" data-cites="article">@article</span>{abreu2024otimizando, title={Otimizando a Gestão de Preços no Varejo com Python}, author={Abreu, Janderson Batista}, year={2024}, url={https://jandersolutions.github.io/jandersolutions/posts/Otimizando%20a%20Gest%C3%A3o%20de%20Pre%C3%A7os%20no%20Varejo%20com%20Python/}, note={Acesso em: 24 out. 2024}, institution={Anhanguera Educacional}, keywords={ciência de dados, otimização de preços, varejo, Python} }</p>
+<section id="adicionar-nós" class="level1">
+<h1>Adicionar nós</h1>
+<p>G.add_node(“Produto A”) G.add_node(“Produto B”)</p>
+</section>
+<section id="adicionar-uma-aresta-entre-os-nós" class="level1">
+<h1>Adicionar uma aresta entre os nós</h1>
+<p>G.add_edge(“Produto A”, “Produto B”)</p>
+</section>
+<section id="desenhar-o-grafo" class="level1">
+<h1>Desenhar o grafo</h1>
+<p>nx.draw(G, with_labels=True, node_color=‘lightblue’, font_weight=‘bold’) plt.show()</p>
+<p>Neste exemplo, criamos um grafo simples com dois produtos (nós) e uma conexão entre eles (aresta). A biblioteca matplotlib é usada para desenhar e visualizar o grafo. 4. Aplicação Prática: Regras de Associação com NetworkX</p>
+<p>No contexto de análise de cestas de compras, o NetworkX pode ser utilizado para visualizar as relações entre produtos comprados juntos. Isso é feito através da criação de redes onde os nós são produtos e as arestas representam a frequência com que esses produtos são comprados em conjunto. Exemplo: Visualizando Regras de Associação</p>
+<p>Imagine que temos um conjunto de dados com produtos comprados juntos, e queremos visualizar quais produtos estão fortemente associados. Podemos usar regras de associação (geradas por algoritmos como o Apriori) e visualizar os resultados com NetworkX.</p>
+<p>python</p>
+<p>import pandas as pd import networkx as nx import matplotlib.pyplot as plt</p>
+</section>
+<section id="dados-simulados-de-regras-de-associação" class="level1">
+<h1>Dados simulados de regras de associação</h1>
+<p>regras = pd.DataFrame({ ‘antecedents’: [‘Produto A’, ‘Produto B’, ‘Produto C’], ‘consequents’: [‘Produto B’, ‘Produto C’, ‘Produto D’], ‘lift’: [2.5, 3.1, 1.8] })</p>
+</section>
+<section id="criar-o-grafo" class="level1">
+<h1>Criar o grafo</h1>
+<p>G = nx.from_pandas_edgelist(regras, source=‘antecedents’, target=‘consequents’, edge_attr=‘lift’)</p>
+</section>
+<section id="desenhar-o-grafo-1" class="level1">
+<h1>Desenhar o grafo</h1>
+<p>plt.figure(figsize=(8, 6)) pos = nx.spring_layout(G) # Layout para o grafo nx.draw(G, pos, with_labels=True, node_color=‘lightgreen’, font_size=12, font_weight=‘bold’)</p>
+</section>
+<section id="desenhar-as-arestas-ponderadas-pelo-lift" class="level1">
+<h1>Desenhar as arestas ponderadas pelo lift</h1>
+<p>edges = nx.get_edge_attributes(G, ‘lift’) nx.draw_networkx_edge_labels(G, pos, edge_labels=edges)</p>
+<p>plt.title(‘Rede de Regras de Associação entre Produtos’) plt.show()</p>
+<p>Nesse exemplo, criamos um gráfico de rede onde os produtos representam os nós, e as arestas entre eles são ponderadas pela métrica de lift, que indica a força da associação entre os produtos. Isso facilita a visualização de quais produtos têm maior probabilidade de serem comprados juntos. 5. Análise de Redes e Oportunidades de Negócios</p>
+<p>A visualização de regras de associação em forma de rede pode ser utilizada por varejistas para otimizar seu sortimento de produtos e criar promoções cruzadas. Por exemplo:</p>
+<pre><code>Promoções Cruzadas: Identificar produtos fortemente associados e oferecer descontos conjuntos.
+Layout de Loja: Organizar os produtos frequentemente comprados juntos em locais próximos, facilitando a compra.</code></pre>
+<p>Insights Adicionais</p>
+<p>As métricas calculadas nas redes, como grau (o número de conexões de um nó) e centralidade (a importância de um nó na rede), podem fornecer insights adicionais. Produtos com um alto grau, por exemplo, são mais centrais e frequentemente comprados com outros, sendo alvos interessantes para promoções. 6. Conclusão</p>
+<p>O NetworkX é uma poderosa ferramenta para a visualização e análise de redes complexas. No varejo, sua aplicação permite compreender melhor as relações entre produtos e consumidores, proporcionando insights valiosos que podem ser transformados em ações estratégicas.</p>
+<p>A combinação de técnicas de mineração de dados e visualização com o NetworkX oferece uma nova dimensão para a análise de cestas de compras, ajudando empresas a otimizar seus estoques, promoções e layout de loja. Conforme relatado por Kaggle (2021), “a capacidade de visualizar dados complexos ajuda os varejistas a tomar decisões mais informadas e ágeis”. Referências</p>
+<pre><code>Kaggle. (2021). Data Science in Retail. Disponível em kaggle.com.
+Newman, M. E. J. (2018). Networks: An Introduction. Oxford University Press.</code></pre>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -962,6 +835,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<script src="https://giscus.app/client.js" data-repo="Jandersolutions/jandersolutions" data-repo-id="R_kgDOIrGiqg" data-category="General" data-category-id="DIC_kwDOIrGiqs4CjppG" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="pt-br" crossorigin="anonymous" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="preferred_color_scheme">
+<input type="hidden" id="giscus-alt-theme" value="preferred_color_scheme">
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
